@@ -70,4 +70,13 @@ class Pegawai extends Model
     {
         return $this->hasMany(Kgb::class);
     }
+
+    public static function getTotalGender()
+    {
+        return [
+            'total' => Pegawai::count(),
+            'lakiLaki' => Pegawai::where('jns_kelamin', 'L')->count(),
+            'perempuan' => Pegawai::where('jns_kelamin', 'P')->count(),
+        ];
+    }
 }
