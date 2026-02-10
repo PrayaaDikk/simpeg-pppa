@@ -10,12 +10,20 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans:
-        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
+    --font-sans: "Poppins", sans-serif;
+
+    --color-primary: #5932ea;
+
+    --color-lavender: #c1c1ff;
+    --color-lavender-light: #e8e8ff;
+
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
 }
 
 html {
-    font-size: 16px;
+    @apply text-[16px] max-sm:text-[12px];
 }

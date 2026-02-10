@@ -14,12 +14,12 @@ class BidangSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['nama_bidang' => 'Sekretariat'],
-            ['nama_bidang' => 'Perlindungan Hak Perempuan'],
-            ['nama_bidang' => 'Perlindungan Kualitas Anak'],
-            ['nama_bidang' => 'Pemberdayaan Perempuan'],
-            ['nama_bidang' => 'Kualitas Hidup Perempuan'],
-            ['nama_bidang' => 'Unit Pelaksana Teknis Daerah Perlindungan Perempuan dan Anak'],
+            ['nama_bidang' => 'Sekretariat', 'akronim' => 'Sekretariat'],
+            ['nama_bidang' => 'Perlindungan Hak Perempuan', 'akronim' => 'PHPP'],
+            ['nama_bidang' => 'Perlindungan Kualitas Anak', 'akronim' => 'PKA'],
+            ['nama_bidang' => 'Pemberdayaan Perempuan', 'akronim' => 'PP'],
+            ['nama_bidang' => 'Kualitas Hidup Perempuan', 'akronim' => 'KHP'],
+            ['nama_bidang' => 'Unit Pelaksana Teknis Daerah Perlindungan Perempuan dan Anak', 'akronim' => 'UPTD PPPA'],
         ];
 
         foreach ($data as $item) {

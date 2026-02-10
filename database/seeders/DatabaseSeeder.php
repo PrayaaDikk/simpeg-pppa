@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Pegawai;
 use Illuminate\Database\Seeder;
 use Database\Seeders\BidangSeeder;
 use Database\Seeders\PangkatSeeder;
@@ -23,5 +24,7 @@ class DatabaseSeeder extends Seeder
             BidangSeeder::class,
             PangkatSeeder::class,
         ]);
+
+        Pegawai::factory(120)->create();
     }
 }

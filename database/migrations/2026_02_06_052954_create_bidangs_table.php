@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('bidang', function (Blueprint $table) {
             $table->id();
             $table->string('nama_bidang', 100);
+            $table->string('akronim', 20);
             $table->timestamps();
         });
     }

@@ -10,8 +10,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('dashboard', [
-            "data" => Pegawai::getTotalGender()
-        ]);
+        $gender = Pegawai::getTotalGender();
+        $bidang = Pegawai::with('bidang')
+            ->get()
+            ->groupBy('bidang_id')
+            ->sortKeys();
+
+        return view('admin.dashboard', compact('gender', 'bidang'));
     }
 }
