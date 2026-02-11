@@ -40,7 +40,7 @@
 </div>
 
 @push('scripts')
-    <script>
+    <script type="module">
         new Chart(document.getElementById('genderPie'), {
             type: 'pie',
             data: {
