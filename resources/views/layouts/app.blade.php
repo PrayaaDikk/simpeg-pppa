@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -22,13 +22,19 @@
     <main class="bg-[#FBFCFE]">
         <x-sidebar />
 
-        <div class="p-8 sm:ml-64 xl:ml-80">
-            @yield('content')
+        <div class="p-8 sm:ml-64">
+
+            <div class="mx-auto max-w-6xl">
+
+                <header class="mb-10">
+                    <h1 class="text-2xl font-bold">@yield('header')</h1>
+                </header>
+
+                @yield('content')
+            </div>
         </div>
 
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     @stack('scripts')
 
 </body>
