@@ -14,9 +14,12 @@
 
     --color-primary: #5932ea;
 
+    --color-muted: #9197b3;
+
     --color-lavender: #c1c1ff;
     --color-lavender-light: #e8e8ff;
 
+    --breakpoint-xs: 480px;
     --breakpoint-sm: 640px;
     --breakpoint-md: 768px;
     --breakpoint-lg: 1024px;
@@ -26,4 +29,45 @@
 
 html {
     @apply text-[16px] max-sm:text-[12px];
+    scrollbar-width: none;
+}
+
+body {
+    -ms-overflow-style: none; /* Internet Explorer/Edge */
+    scrollbar-width: none; /* Firefox */
+    overflow-y: scroll; /* Tetap izinkan scrolling */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Safari & Chrome */
+}
+
+/* Menghilangkan ikon spinner (panah atas/bawah) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Menghilangkan ikon kalender, waktu, dan list */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="month"]::-webkit-calendar-picker-indicator,
+input[type="week"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* Menghilangkan ikon pencarian (search) */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+
+input {
+    -webkit-appearance: none;
+    appearance: none;
 }
