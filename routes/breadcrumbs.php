@@ -22,5 +22,10 @@ Breadcrumbs::for('admin.dashboard', function (BreadcrumbTrail $trail) {
 
 Breadcrumbs::for('admin.cuti.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin');
-    $trail->push('cuti', route('admin.cuti.index'));
+    $trail->push('Cuti', route('admin.cuti.index'));
+});
+
+Breadcrumbs::for('admin.cuti.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.cuti.index');
+    $trail->push('Tambah Cuti', route('admin.cuti.create'));
 });
