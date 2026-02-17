@@ -12,7 +12,7 @@
         {{-- Main Content --}}
         <x-ui.detail-section>
             {{-- Informasi Identitas --}}
-            <x-admin.pegawai.detail-block title="Informasi Identitas Pegawai">
+            <x-ui.detail-block title="Informasi Identitas Pegawai">
                 <div class="md:col-span-3">
                     <x-ui.photo-display :src="$pegawai->foto" :alt="$pegawai->nama" size="lg" />
                 </div>
@@ -27,44 +27,44 @@
 
                 <x-ui.detail-item title="Tempat Lahir" :value="$pegawai->tpt_lahir" />
                 <x-ui.detail-item title="Tanggal Lahir" :value="\App\Helpers\Helper::formatedDate($pegawai->tgl_lahir)" />
-            </x-admin.pegawai.detail-block>
+            </x-ui.detail-block>
 
             {{-- Informasi Kontak & Alamat --}}
-            <x-admin.pegawai.detail-block title="Informasi Kontak & Alamat">
+            <x-ui.detail-block title="Informasi Kontak & Alamat">
                 <x-ui.detail-item title="No. Telepon" :value="$pegawai->telp" />
                 <x-ui.detail-item title="Kode Pos" :value="$pegawai->kode_pos" />
                 <div class="md:col-span-2">
                     <x-ui.detail-item title="Alamat" :value="$pegawai->alamat" />
                 </div>
-            </x-admin.pegawai.detail-block>
+            </x-ui.detail-block>
 
             {{-- Informasi Pendidikan --}}
-            <x-admin.pegawai.detail-block title="Informasi Pendidikan">
+            <x-ui.detail-block title="Informasi Pendidikan">
                 <x-ui.detail-item title="Pendidikan Terakhir" :value="$pegawai->pendidikan ?? 'Tidak ada riwayat pendidikan'" />
-            </x-admin.pegawai.detail-block>
+            </x-ui.detail-block>
 
             {{-- Status Pernikahan --}}
-            <x-admin.pegawai.detail-block title="Status Pernikahan">
+            <x-ui.detail-block title="Status Pernikahan">
                 <x-ui.detail-item title="Status Kawin" :value="$pegawai->status_kawin" />
                 <x-ui.detail-item title="Nama Pasangan" :value="$pegawai->suami_istri" />
                 <x-ui.detail-item title="Status Kerja Pasangan" :value="$pegawai->sta_kerja_suami_istri" />
                 <x-ui.detail-item title="Jumlah Anak" :value="$pegawai->jumlah_anak . ' orang'" />
-            </x-admin.pegawai.detail-block>
+            </x-ui.detail-block>
 
             {{-- Informasi Kepegawaian & Jabatan --}}
-            <x-admin.pegawai.detail-block title="Informasi Kepegawaian & Jabatan">
+            <x-ui.detail-block title="Informasi Kepegawaian & Jabatan">
                 <x-ui.detail-item title="Jenis Pegawai" :value="$pegawai->jns_karyawan" />
                 <x-ui.detail-item title="Bidang" :value="$pegawai->bidang->nama" />
                 <x-ui.detail-item title="Jabatan" :value="$pegawai->jabatan" />
                 <x-ui.detail-item title="Golongan/Ruang" :value="$pegawai->gol_ruang" />
                 <x-ui.detail-item title="Pangkat" :value="$pegawai->pangkat" />
-            </x-admin.pegawai.detail-block>
+            </x-ui.detail-block>
 
             {{-- Informasi Masa Kerja --}}
-            <x-admin.pegawai.detail-block title="Informasi Masa Kerja">
+            <x-ui.detail-block title="Informasi Masa Kerja">
                 <x-ui.detail-item title="TMT Pangkat" :value="\App\Helpers\Helper::formatedDate($pegawai->tmt_pangkat)" />
                 <x-ui.detail-item title="Masa Kerja" :value="$pegawai->masa_kerja_thn . ' Tahun ' . $pegawai->masa_kerja_bln . ' Bulan'" />
-            </x-admin.pegawai.detail-block>
+            </x-ui.detail-block>
 
             {{-- Action Buttons --}}
             <div class="flex items-center flex-wrap justify-end max-xs:justify-start gap-3 pt-6 border-t border-gray-200">
