@@ -11,6 +11,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [PegawaiController::class, 'index'])->name('admin.pegawai.index');
         Route::get('/create', [PegawaiController::class, 'create'])->name('admin.pegawai.create');
         Route::post('/store', [PegawaiController::class, 'store'])->name('admin.pegawai.store');
+        Route::delete('/{id}', [PegawaiController::class, 'destroy'])->name('admin.pegawai.destroy');
 
         Route::get('/{id}', [PegawaiController::class, 'show'])->name('admin.pegawai.show');
     });

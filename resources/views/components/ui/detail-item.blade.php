@@ -1,6 +1,6 @@
 @props(['title', 'value'])
 
-<div class="space-y-1 tracking-wide">
-    <h3 class="text-muted text-xs font-medium">{{ $title }}</h3>
-    <p class="text-xs font-medium">{{ $value }}</p>
+<div>
+    <dt class="text-sm font-medium text-gray-500 mb-1">{{ $title }}</dt>
+    <dd class="text-sm text-gray-900">{{ $value ?? '-' }}</dd>
 </div>

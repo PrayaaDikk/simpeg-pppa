@@ -1,6 +1,10 @@
-<div class="rounded-lg bg-white px-6 py-8 shadow-sm tracking-wide">
-    <h2 class="text-heading text-sm font-semibold mb-3">{{ $title }}</h2>
-    <div class="flex md:gap-12 max-md:flex-wrap gap-6">
+@props(['title'])
+
+<div class="border border-default rounded-lg p-6">
+    <h3 class="text-lg font-semibold text-heading mb-6 pb-3 border-b border-default">
+        {{ $title }}
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {{ $slot }}
     </div>
 </div>

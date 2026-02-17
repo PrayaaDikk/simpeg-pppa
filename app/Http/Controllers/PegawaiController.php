@@ -92,4 +92,10 @@ class PegawaiController extends Controller
         Pegawai::create($validated);
         return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai berhasil ditambahkan.');
     }
+
+    public function destroy($id)
+    {
+        Pegawai::findOrFail($id)->delete();
+        return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai berhasil dihapus.');
+    }
 }

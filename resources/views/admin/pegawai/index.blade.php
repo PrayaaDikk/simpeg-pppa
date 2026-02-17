@@ -12,7 +12,7 @@
         <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.pegawai.index')" />
 
         @if (session('success'))
-            <div class="mt-5 p-4 bg-green-100 text-green-700 rounded-base">
+            <div class="my-5 p-4 bg-green-100 text-green-700 rounded-base">
                 <p class="list-disc list-inside">
                     {{ session('success') }}
                 </p>
