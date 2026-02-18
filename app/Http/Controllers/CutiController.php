@@ -38,7 +38,9 @@ class CutiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cuti = Cuti::with('pegawai')->findOrFail($id);
+
+        return view('admin.cuti.show', compact('cuti'));
     }
 
     /**
@@ -62,6 +64,8 @@ class CutiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Cuti::findOrFail($id)->delete();
+
+        return redirect()->route('admin.cuti.index')->with('success', 'Data cuti berhasil dihapus');
     }
 }

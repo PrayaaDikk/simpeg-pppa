@@ -13,7 +13,8 @@
                 <td class="px-6 py-4">{{ $item->disetujui_oleh }}</td>
                 <td class="px-6 py-4">-</td>
                 <td class="px-6 py-4">
-                    <a href="" class="text-blue-600 hover:underline">Lihat Detail</a>
+                    <a href="{{ route('admin.cuti.show', $item->id) }}" class="text-blue-600 hover:underline">Lihat
+                        Detail</a>
                 </td>
             </tr>
         @endforeach
