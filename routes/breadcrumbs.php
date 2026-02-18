@@ -20,7 +20,7 @@ Breadcrumbs::for('admin.dashboard', function (BreadcrumbTrail $trail) {
     $trail->push('Dashboard', route('admin.dashboard'));
 });
 
-Breadcrumbs::for('admin.cuti.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.kgb.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin');
-    $trail->push('cuti', route('admin.cuti.index'));
+    $trail->push('Kgb', route('admin.kgb.index'));
 });

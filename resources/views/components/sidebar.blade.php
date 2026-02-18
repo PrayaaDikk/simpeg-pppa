@@ -58,7 +58,7 @@
             </x-ui.nav-link>
 
             {{-- KGB --}}
-            <x-ui.nav-link href="/admin/kgb" :active="request()->is('admin/kgb')">
+            <x-ui.nav-link href="/admin/kgb" :active="request()->is('admin/kgb*')">
                 <x-slot:icon>
                     <x-ui.nav-icon width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
