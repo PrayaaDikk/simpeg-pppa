@@ -16,9 +16,14 @@ return new class extends Migration
             $table->foreignId('pegawai_id')->constrained('pegawai')->cascadeOnDelete();
 
             $table->enum('tingkat', ['SMA', 'D3', 'D4', 'S1', 'S2', 'S3']);
+            $table->tinyInteger('level_pendidikan')->index();
+
             $table->string('jurusan', 100);
             $table->string('institusi', 150);
             $table->year('tahun_lulus');
+
+            $table->string('ijazah');
+            $table->string('nomor_ijazah', 100);
 
             $table->timestamps();
         });

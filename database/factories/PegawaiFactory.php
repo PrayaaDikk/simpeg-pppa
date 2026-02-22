@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Bidang;
 use App\Models\Pegawai;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
@@ -13,47 +12,39 @@ class PegawaiFactory extends Factory
 
     public function definition(): array
     {
-        // PAKSA tanggal lahir pasti di masa lalu
-        $tglLahir = Carbon::instance(
-            $this->faker->dateTimeBetween('-58 years', '-22 years')
-        );
-
-        // HITUNG USIA DENGAN ARAH BENAR
-        $usia = $tglLahir->diffInYears(now());
+        $usia = Carbon::parse('2005-08-17')->diff(now())->y;
 
         return [
-            'bidang_id' => \App\Models\Bidang::inRandomOrder()->value('id') ?? 1,
+            'bidang_id' => 1,
 
-            'nip' => $this->faker->unique()->numerify('19##############'),
-            'karpeg' => $this->faker->optional()->numerify('##########'),
+            'nip' => '200508172024031001',
+            'karpeg' => null,
 
-            'nama' => $this->faker->name(),
-            'jns_kelamin' => $this->faker->randomElement(['L', 'P']),
-            'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha']),
+            'nama' => 'Fadil Prayadika',
+            'jns_kelamin' => 'L',
+            'agama' => 'Islam',
 
-            'tgl_lahir' => $tglLahir->format('Y-m-d'),
+            'tgl_lahir' => '2005-08-17',
             'usia' => $usia,
 
-            'tpt_lahir' => substr($this->faker->city(), 0, 20),
-            'pendidikan' => $this->faker->randomElement(['SMA', 'D3', 'S1', 'S2']),
-            'telp' => substr($this->faker->numerify('08############'), 0, 15),
-            'kode_pos' => $this->faker->numerify('#####'),
-            'alamat' => substr($this->faker->address(), 0, 50),
+            'tpt_lahir' => 'Kota Kendari',
+            'telp' => '082119498353',
+            'kode_pos' => '93121', // Contoh kodepos Kendari
+            'alamat' => 'Jl. Palapa, Kemaraya, Kendari Barat',
 
-            'status_kawin' => $this->faker->randomElement(['Belum Kawin', 'Kawin', 'Cerai']),
-            'suami_istri' => null,
-            'sta_kerja_suami_istri' => null,
-            'jumlah_anak' => $this->faker->numberBetween(0, 4),
+            'status_kawin' => 'Kawin',
+            'suami_istri' => 'Afidelya Kanaya Ozara S.',
+            'sta_kerja_suami_istri' => 'Kerja',
+            'jumlah_anak' => 1,
 
-            'jns_karyawan' => $this->faker->randomElement(['PNS', 'PPPK']),
-            'jabatan' => substr($this->faker->jobTitle(), 0, 45),
-            'gol_ruang' => $this->faker->randomElement(['II/a', 'III/a', 'III/b', 'IV/a']),
-            'pangkat' => $this->faker->randomElement(['Pengatur', 'Penata', 'Pembina']),
+            'jns_karyawan' => 'PNS',
 
-            'tmt_pangkat' => $this->faker->date(),
-            'masa_kerja_thn' => $this->faker->numberBetween(1, 30),
-            'masa_kerja_bln' => $this->faker->numberBetween(0, 11),
-
+            'jabatan' => 'Kepala Dinas',
+            'gol_ruang' => 'III/a',
+            'pangkat' => 'Penata Muda',
+            'tmt_pangkat' => '2024-03-10',
+            'masa_kerja_thn' => 1,
+            'masa_kerja_bln' => 11,
             'foto' => null,
         ];
     }
