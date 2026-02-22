@@ -1,6 +1,7 @@
 @props(['pangkat', 'bidang'])
 
-<form class="max-w-5xl mx-auto" action="{{ route('admin.pegawai.store') }}" method="POST" enctype="multipart/form-data">
+<form class="max-w-5xl mx-auto" action="{{ route('admin.pegawai.store') }}" method="POST" enctype="multipart/form-data"
+    x-data="{ loading: false }" @submit="loading = true">
     @csrf
 
     {{-- Nama Lengkap - NIP --}}
@@ -43,19 +44,8 @@
             </x-ui-input>
     </x-input-form-block>
 
-    {{-- Pendidikan Terakhir - No. Telepon - Kode Pos --}}
+    {{-- No. Telepon - Kode Pos --}}
     <x-input-form-block>
-        <x-ui.select name="pendidikan" label="Pendidikan Terakhir" :options="[
-            ['value' => 'SMA', 'label' => 'SMA'],
-            ['value' => 'D1', 'label' => 'D1'],
-            ['value' => 'D2', 'label' => 'D2'],
-            ['value' => 'D3', 'label' => 'D3'],
-            ['value' => 'D4', 'label' => 'D4'],
-            ['value' => 'S1', 'label' => 'S1'],
-            ['value' => 'S2', 'label' => 'S2'],
-            ['value' => 'S3', 'label' => 'S3'],
-        ]" required />
-
         <x-ui.input name="telp" label="No. Telepon" placeholder="08xxxxxxxxxx" required />
         <x-ui.input name="kode_pos" label="Kode Pos" placeholder="xxxxx" required />
     </x-input-form-block>
@@ -133,7 +123,8 @@
     </div>
 
 
-    <button type="submit"
-        class="cursor-pointer text-white bg-primary box-border border border-transparent hover:bg-primary/90 focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Tambah
+    <button type="submit" :disabled="loading"
+        class="text-white bg-primary box-border border border-transparent hover:bg-primary/90 focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+        :class="{ loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer' }">Tambah
         Pegawai</button>
 </form>

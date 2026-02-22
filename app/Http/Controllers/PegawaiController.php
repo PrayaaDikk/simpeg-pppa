@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+// use App\Http\Controllers\Controller;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePegawaiRequest;
+use App\Http\Requests\UpdatePegawaiRequest;
 use App\Models\Bidang;
 use App\Models\Pangkat;
 use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PegawaiController extends Controller
 {
@@ -60,7 +63,7 @@ class PegawaiController extends Controller
     public function show($id)
     {
         $pegawai = Pegawai::findOrFail($id);
-        $pendidikanTerakhir = $pegawai->riwayatPendidikan()->latest('tahun_lulus')->first();
+        $pendidikanTerakhir = $pegawai->pendidikanTerakhir;
 
         return view('admin.pegawai.show', compact('pegawai', 'pendidikanTerakhir'));
     }
@@ -85,7 +88,7 @@ class PegawaiController extends Controller
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $filename = $validated['nip'] . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/pegawai', $filename);
+            Storage::disk('public')->putFileAs('foto_pegawai', $file, $filename);
             $validated['foto'] = $filename;
         }
 
@@ -93,9 +96,62 @@ class PegawaiController extends Controller
         return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai berhasil ditambahkan.');
     }
 
+    public function edit($id)
+    {
+        $pegawai = Pegawai::findOrFail($id);
+        $pangkat = Pangkat::all();
+        $bidang = Bidang::all();
+
+        return view('admin.pegawai.edit', compact('pegawai', 'pangkat', 'bidang'));
+    }
+
+    public function update(UpdatePegawaiRequest $request, $id)
+    {
+        $validated = $request->validated();
+        $pegawai = Pegawai::findOrFail($id);
+
+        $validated['usia'] = Carbon::parse($validated['tgl_lahir'])->age;
+        $validated['pangkat'] = Pangkat::where('golongan', $validated['gol_ruang'])->value('nama_pangkat');
+        $validated['masa_kerja_thn'] = Carbon::parse($validated['tmt_pangkat'])->diffInYears(Carbon::now());
+        $validated['masa_kerja_bln'] = Carbon::parse($validated['tmt_pangkat'])->diffInMonths(Carbon::now()) % 12;
+
+        if ($request->hasFile('foto')) {
+
+            if ($pegawai->foto && Storage::disk('public')->exists('foto-pegawai/' . $pegawai->foto)) {
+                Storage::disk('public')->delete('foto-pegawai/' . $pegawai->foto);
+            }
+
+            $file = $request->file('foto');
+            $filename = $validated['nip'] . '_' . time() . '.' . $file->getClientOriginalExtension();
+
+            $file->storeAs('foto-pegawai', $filename, 'public');
+
+            $validated['foto'] = $filename;
+        }
+
+        $pegawai->update($validated);
+
+        return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai berhasil diubah.');
+    }
+
     public function destroy($id)
     {
-        Pegawai::findOrFail($id)->delete();
+        $pegawai = Pegawai::findOrFail($id);
+
+        if ($pegawai->foto && Storage::disk('public')->exists('foto-pegawai/' . $pegawai->foto)) {
+            Storage::disk('public')->delete('foto-pegawai/' . $pegawai->foto);
+        }
+
+        $pegawai->delete();
+
         return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai berhasil dihapus.');
+    }
+
+    public function showFile($filename)
+    {
+        $path = "public/foto-pegawai/{$filename}";
+        if (!Storage::exists($path)) abort(404);
+
+        return Storage::response($path);
     }
 }

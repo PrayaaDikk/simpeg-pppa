@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('nomor_sk', 50);
             $table->date('tanggal_sk');
 
+            $table->string('file_sk');
+
             $table->timestamps();
         });
     }

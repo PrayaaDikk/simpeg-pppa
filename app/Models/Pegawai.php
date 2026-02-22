@@ -3,6 +3,12 @@
 namespace App\Models;
 
 use App\Models\Bidang;
+use App\Models\Cuti;
+use App\Models\Kgb;
+use App\Models\Pangkat;
+use App\Models\RiwayatJabatan;
+use App\Models\RiwayatKepangkatan;
+use App\Models\RiwayatPendidikan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,8 +50,8 @@ class Pegawai extends Model
     ];
 
     protected $casts = [
-        'tgl_lahir' => 'datetime',
-        'tmt_pangkat' => 'datetime',
+        'tgl_lahir' => 'date',
+        'tmt_pangkat' => 'date',
         'jumlah_anak' => 'integer',
         'usia' => 'integer',
         'masa_kerja_thn' => 'integer',
@@ -85,6 +91,14 @@ class Pegawai extends Model
     public function kgb()
     {
         return $this->hasMany(Kgb::class);
+    }
+
+    public function pendidikanTerakhir()
+    {
+        return $this->hasOne(RiwayatPendidikan::class)->ofMany([
+            'level_pendidikan' => 'max',
+            'tahun_lulus' => 'max'
+        ]);
     }
 
     public static function getTotalGender()

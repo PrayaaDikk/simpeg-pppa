@@ -1,15 +1,14 @@
 @extends('layouts.app')
 
-@section('header')
-    Informasi Pegawai DP3A Kota Kendari
-@endsection
-
 @section('content')
+    {{-- Header --}}
+    <x-ui.header :back="route('admin.dashboard')">Informasi Pegawai DP3A Kota Kendari</x-ui.header>
+
+    {{-- BreadCrumb --}}
+    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.pegawai.index')" />
+
     {{-- Main Content --}}
     <section>
-
-        {{-- BreadCrumb --}}
-        <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.pegawai.index')" />
 
         @if (session('success'))
             <div class="my-5 p-4 bg-green-100 text-green-700 rounded-base">

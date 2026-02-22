@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
-@section('header')
-    Detail Pegawai
-@endsection
-
 @section('content')
+    {{-- Header --}}
+    <x-ui.header :back="route('admin.pegawai.index')">Detail Pegawai</x-ui.header>
+
+    {{-- Breadcrumb --}}
+    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.pegawai.show', $pegawai)" />
+
+    {{-- Tab --}}
+    <x-ui.tab :id="$pegawai->id" />
+
     <section class="space-y-6">
-        {{-- Breadcrumb --}}
-        <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.pegawai.show', $pegawai)" />
 
         {{-- Main Content --}}
         <x-ui.detail-section>
@@ -26,7 +29,7 @@
                 <x-ui.detail-item title="Usia" :value="$pegawai->usia . ' tahun'" />
 
                 <x-ui.detail-item title="Tempat Lahir" :value="$pegawai->tpt_lahir" />
-                <x-ui.detail-item title="Tanggal Lahir" :value="\App\Helpers\Helper::formatedDate($pegawai->tgl_lahir)" />
+                <x-ui.detail-item title="Tanggal Lahir" :value="$pegawai->tgl_lahir->format('d M Y')" />
             </x-ui.detail-block>
 
             {{-- Informasi Kontak & Alamat --}}
@@ -40,7 +43,9 @@
 
             {{-- Informasi Pendidikan --}}
             <x-ui.detail-block title="Informasi Pendidikan">
-                <x-ui.detail-item title="Pendidikan Terakhir" :value="$pegawai->pendidikan ?? 'Tidak ada riwayat pendidikan'" />
+                <x-ui.detail-item title="Pendidikan Terakhir" :value="$pendidikanTerakhir
+                    ? $pendidikanTerakhir->tingkat . ' - ' . $pendidikanTerakhir->jurusan
+                    : 'Tidak ada riwayat pendidikan'" />
             </x-ui.detail-block>
 
             {{-- Status Pernikahan --}}
@@ -54,7 +59,7 @@
             {{-- Informasi Kepegawaian & Jabatan --}}
             <x-ui.detail-block title="Informasi Kepegawaian & Jabatan">
                 <x-ui.detail-item title="Jenis Pegawai" :value="$pegawai->jns_karyawan" />
-                <x-ui.detail-item title="Bidang" :value="$pegawai->bidang->nama" />
+                <x-ui.detail-item title="Bidang" :value="$pegawai->bidang_id != 1 ? $pegawai->bidang->nama_bidang : '-'" />
                 <x-ui.detail-item title="Jabatan" :value="$pegawai->jabatan" />
                 <x-ui.detail-item title="Golongan/Ruang" :value="$pegawai->gol_ruang" />
                 <x-ui.detail-item title="Pangkat" :value="$pegawai->pangkat" />
@@ -62,14 +67,14 @@
 
             {{-- Informasi Masa Kerja --}}
             <x-ui.detail-block title="Informasi Masa Kerja">
-                <x-ui.detail-item title="TMT Pangkat" :value="\App\Helpers\Helper::formatedDate($pegawai->tmt_pangkat)" />
+                <x-ui.detail-item title="TMT Pangkat" :value="$pegawai->tmt_pangkat->format('d M Y')" />
                 <x-ui.detail-item title="Masa Kerja" :value="$pegawai->masa_kerja_thn . ' Tahun ' . $pegawai->masa_kerja_bln . ' Bulan'" />
             </x-ui.detail-block>
 
             {{-- Action Buttons --}}
             <div class="flex items-center flex-wrap justify-end max-xs:justify-start gap-3 pt-6 border-t border-gray-200">
-                <a
-                    class="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-brand rounded-lg hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium transition-colors">
+                <a href="{{ route('admin.pegawai.edit', $pegawai->id) }}"
+                    class=" inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-brand rounded-lg hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium transition-colors">
                     <svg class="w-4 h-4" width="64px" height="64px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

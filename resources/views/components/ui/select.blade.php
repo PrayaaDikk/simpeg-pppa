@@ -1,25 +1,30 @@
 @props([
-    'attributes' => [],
     'name' => '',
     'label' => '',
+    'value' => '',
     'options' => [],
     'required' => false,
+    'disabled' => false,
 ])
 
-<div class="w-full">
-    @if ($required)
-        <label for="{{ $name }}" class="block mb-1.5 text-sm font-medium text-heading">{{ $label }} <span
-                class="text-muted">*</span></label>
-    @else
-        <label for="{{ $name }}" class="block mb-1.5 text-sm font-medium text-heading">{{ $label }}</label>
+<div {{ $attributes->merge(['class' => 'w-full']) }}>
+    @if ($label)
+        <label for="{{ $name }}" class="block mb-1.5 text-sm font-medium text-heading">
+            {{ $label }}
+            @if ($required)
+                <span class="text-red-500">*</span>
+            @endif
+        </label>
     @endif
 
     <select id="{{ $name }}" name="{{ $name }}"
-        {{ $attributes->merge(['class' => 'block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-primary focus:border-primary shadow-xs placeholder:text-muted cursor-pointer']) }}
-        {{ $required ? 'required' : '' }}>
+        class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-primary focus:border-primary shadow-xs cursor-pointer @error($name) border-red-500 @enderror"
+        {{ $required ? 'required' : '' }} {{ $disabled ? 'disabled' : '' }}>
+        <option value="">Pilih {{ $label }}</option>
         @foreach ($options as $option)
-            <option value="{{ $option['value'] }}" {{ old($name) == $option['value'] ? 'selected' : '' }}>
-                {{ $option['label'] }}</option>
+            <option value="{{ $option['value'] }}" {{ old($name, $value) == $option['value'] ? 'selected' : '' }}>
+                {{ $option['label'] }}
+            </option>
         @endforeach
     </select>
 </div>

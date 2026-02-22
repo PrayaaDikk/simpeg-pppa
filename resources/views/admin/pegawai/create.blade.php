@@ -1,16 +1,14 @@
 @extends('layouts.app')
 
-@section('header')
-    Tambah Pegawai
-@endsection
-
 @section('content')
+    {{-- Header --}}
+    <x-ui.header :back="route('admin.pegawai.index')">Tambah Pegawai</x-ui.header>
+
+    {{-- BreadCrumb --}}
+    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.pegawai.create')" />
+
     {{-- Main Content --}}
     <section>
-
-        {{-- BreadCrumb --}}
-        <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.pegawai.create')" />
-
         @if ($errors->any())
             <div class="my-5 p-4 bg-red-100 text-red-700 rounded-base">
                 <ul class="list-disc list-inside text-sm">
