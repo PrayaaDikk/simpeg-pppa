@@ -12,8 +12,11 @@
 
 <div x-data="{ loading: false }">
     {{-- Trigger Button --}}
-    <button type="button" data-modal-target="{{ $modalId }}" data-modal-toggle="{{ $modalId }}"
+    <button type="button" data-modal-target="{{ $modalId }}" data-modal-toggle="{{ $modalId }}" <<<<<<< HEAD
         class="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-danger border border-transparent rounded-base hover:bg-danger-strong focus:ring-4 focus:ring-danger-medium shadow-xs focus:outline-none transition-colors">
+        =======
+        class=" inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-danger border border-transparent rounded-base hover:bg-danger-strong focus:ring-4 focus:ring-danger-medium shadow-xs focus:outline-none transition-colors">
+        >>>>>>> feat/admin/pegawai
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -28,7 +31,7 @@
             <div class="relative bg-white border border-gray-200 rounded-lg shadow-lg">
                 {{-- Close Button --}}
                 <button type="button"
-                    class="cursor-pointer absolute top-3 right-3 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
+                    class=" absolute top-3 right-3 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
                     data-modal-hide="{{ $modalId }}">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -61,8 +64,11 @@
                             </button>
                         </form>
 
-                        <button type="button" data-modal-hide="{{ $modalId }}"
+                        <button type="button" data-modal-hide="{{ $modalId }}" <<<<<<< HEAD
                             class="cursor-pointer text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 transition-colors">
+                            =======
+                            class=" text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 transition-colors">
+                            >>>>>>> feat/admin/pegawai
                             {{ $cancelText }}
                         </button>
                     </div>
