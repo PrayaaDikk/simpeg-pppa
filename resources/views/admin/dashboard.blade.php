@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
-@section('header')
-    Selamat Datang di SIMPEG-PPPA Kota Kendari
-@endsection
-
 @section('content')
+    <x-ui.header>Selamat Datang di SIMPEG-PPPA Kota Kendari</x-ui.header>
+
     {{-- BreadCrumb --}}
     <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.dashboard')" />
 

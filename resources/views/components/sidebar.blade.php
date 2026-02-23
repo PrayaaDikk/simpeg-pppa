@@ -9,7 +9,7 @@
 </button>
 
 <aside id="default-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-full transition-transform -translate-x-full sm:translate-x-0"
+    class="fixed top-0 left-0 z-40 w-64 h-full transition-transform -translate-x-full sm:translate-x-0 select-none"
     aria-label="Sidebar">
     <div class="h-full px-6 py-8 overflow-y-auto bg-neutral-primary-soft border-e border-default">
         <div class="flex items-center gap-2 mb-8">
@@ -33,7 +33,7 @@
             </x-ui.nav-link>
 
             {{-- Pegawai --}}
-            <x-ui.nav-link href="/admin/pegawai" :active="request()->is('admin/pegawai')">
+            <x-ui.nav-link href="/admin/pegawai" :active="request()->is('admin/pegawai*')">
                 <x-slot:icon>
                     <x-ui.nav-icon fill="currentColor" width="24" height="24" viewBox="0 0 32 32"
                         xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@
             </x-ui.nav-link>
 
             {{-- Cuti --}}
-            <x-ui.nav-link href="/admin/cuti" :active="request()->is('admin/cuti')">
+            <x-ui.nav-link href="/admin/cuti" :active="request()->is('admin/cuti*')">
                 <x-slot:icon>
                     <x-ui.nav-icon width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +58,7 @@
             </x-ui.nav-link>
 
             {{-- KGB --}}
-            <x-ui.nav-link href="/admin/kgb" :active="request()->is('admin/kgb')">
+            <x-ui.nav-link href="/admin/kgb" :active="request()->is('admin/kgb*')">
                 <x-slot:icon>
                     <x-ui.nav-icon width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">

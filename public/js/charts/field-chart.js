@@ -2,6 +2,9 @@ export function initFieldChart(elementId, bidangData) {
     const ctx = document.getElementById(elementId);
     if (!ctx) return;
 
+    // Hitung total untuk persentase
+    const total = bidangData.reduce((sum, item) => sum + item.count, 0);
+
     const labels = bidangData.map((item) => `Bidang ${item.akronim}`);
     const data = bidangData.map((item) => item.count);
 
@@ -48,12 +51,32 @@ export function initFieldChart(elementId, bidangData) {
                     titleFont: { family: "Poppins", size: 13, weight: "bold" },
                     bodyFont: { family: "Poppins", size: 12 },
                     callbacks: {
-                        label: (context) =>
-                            `Jumlah: ${context.parsed.x} pegawai`,
+                        label: (context) => {
+                            const count = context.parsed.x;
+                            const percentage = ((count / total) * 100).toFixed(
+                                1,
+                            );
+                            return `Jumlah: ${count} pegawai (${percentage}%)`;
+                        },
+                    },
+                },
+                datalabels: {
+                    color: "#ffffff",
+                    font: {
+                        family: "Poppins",
+                        size: 13,
+                        weight: "bold",
+                    },
+                    anchor: "center",
+                    align: "center",
+                    formatter: (value, context) => {
+                        const percentage = ((value / total) * 100).toFixed(1);
+                        return `${value} (${percentage}%)`;
                     },
                 },
             },
         },
+        plugins: [ChartDataLabels],
     };
 
     return new Chart(ctx, config);

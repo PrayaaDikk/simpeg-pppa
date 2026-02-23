@@ -10,10 +10,17 @@ class RiwayatJabatan extends Model
     protected $table = 'riwayat_jabatan';
 
     protected $fillable = [
+        'pegawai_id',
         'nama_jabatan',
         'tmt_jabatan',
         'nomor_sk',
         'tanggal_sk',
+        'file_sk',
+    ];
+
+    protected $casts = [
+        'tmt_jabatan' => 'date',
+        'tanggal_sk' => 'date'
     ];
 
     public function pegawai()

@@ -25,11 +25,6 @@
         <div class="p-8 sm:ml-64">
 
             <div class="mx-auto max-w-6xl">
-
-                <header class="mb-10">
-                    <h1 class="text-2xl font-bold">@yield('header')</h1>
-                </header>
-
                 @yield('content')
             </div>
         </div>

@@ -23,7 +23,6 @@ return new class extends Migration
             $table->date('tgl_lahir');
             $table->integer('usia');
             $table->string('tpt_lahir', 20);
-            $table->string('pendidikan', 30);
             $table->string('telp', 15);
             $table->string('kode_pos', 5);
             $table->string('alamat', 50);

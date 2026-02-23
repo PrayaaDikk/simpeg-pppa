@@ -4,7 +4,7 @@
     <h2 class="font-semibold mb-4">Distribusi Pegawai per Bidang</h2>
 
     @if (count($bidang) > 0)
-        <div class="w-full" style="height: {{ max(400, count($bidang) * 60) }}px;">
+        <div class="w-full h-96">
             <canvas id="fieldBar"></canvas>
         </div>
     @else
@@ -13,6 +13,13 @@
 </div>
 
 @push('scripts')
+    {{-- Chart.js --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    {{-- ChartJS DataLabels Plugin --}}
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js">
+    </script>
+
     <script type="module">
         import {
             initFieldChart
