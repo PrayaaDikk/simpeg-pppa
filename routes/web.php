@@ -6,6 +6,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\RiwayatJabatanController;
 use App\Http\Controllers\RiwayatKepangkatanController;
 use App\Http\Controllers\RiwayatPendidikanController;
+use App\Http\Controllers\KgbController;
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -62,4 +63,15 @@ Route::prefix('storage')->group(function () {
     Route::get('ijazah/{$filename}', [RiwayatPendidikanController::class, 'showFile'])->name('riwayat-pendidikan.showFile');
     Route::get('sk-pangkat/{$filename}', [RiwayatKepangkatanController::class, 'showFile'])->name('riwayat-pangkat.showFile');
     Route::get('sk-jabatan/{$filename}', [RiwayatKepangkatanController::class, 'showFile'])->name('riwayat-jabatan.showFile');
+});
+
+Route::controller(KgbController::class)->prefix('kgb')->name('kgb.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'destroy')->name('destroy');
 });
