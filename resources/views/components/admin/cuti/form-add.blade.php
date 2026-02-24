@@ -1,5 +1,13 @@
-<form class="max-w-5xl mx-auto" action="{{ route('admin.cuti.store', 1) }}" method="POST">
+@props(['pegawai'])
+
+<form class="max-w-5xl mx-auto" action="{{ route('admin.cuti.store', 1) }}" method="POST" x-data="{ loading: false }"
+    @submit="loading = true">
     @csrf
+
+    <x-input-form-block>
+        <x-ui.input name="pegawai_id" type="hidden" class="hidden" value="{{ $pegawai->id }}" required />
+        <x-ui.input value="{{ $pegawai->nama }}" disabled label="Nama Pegawai" required />
+    </x-input-form-block>
 
     <x-input-form-block>
         <x-ui.select name="jenis_cuti" label="Jenis Cuti" :options="[
@@ -60,6 +68,7 @@
     </x-input-form-block>
 
     <button type="submit"
-        class="cursor-pointer text-white bg-primary box-border border border-transparent hover:bg-primary/90 focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Tambah
+        class="text-white bg-primary box-border border border-transparent hover:bg-primary/90 focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+        :class="loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'" :disabled="loading">Tambah
         Cuti</button>
 </form>

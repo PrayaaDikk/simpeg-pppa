@@ -5,7 +5,7 @@
     <x-ui.header :back="route('admin.cuti.index')">Tambah Cuti</x-ui.header>
 
     {{-- BreadCrumb --}}
-    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.cuti.create')" />
+    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.cuti.create', $pegawai->id)" />
 
     {{-- Main Content --}}
     <section>
@@ -20,7 +20,7 @@
         @endif
 
         <div class="bg-white shadow-sm p-6 rounded-lg">
-            <x-admin.cuti.form-add />
+            <x-admin.cuti.form-add :pegawai="$pegawai" />
         </div>
 
     </section>

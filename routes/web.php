@@ -78,11 +78,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::prefix('cuti')->group(function () {
             Route::controller(CutiController::class)->as('cuti.')->group(function () {
                 Route::get('/', 'index')->name('index');
-                Route::get('/create', 'create')->name('create');
-                Route::post('/{pegawaiId}', 'store')->name('store');
+                Route::get('/create/{pegawaiId}', 'create')->name('create');
+                Route::post('/store', 'store')->name('store');
 
-                Route::get('/{id}', 'show')->name('show');
                 Route::get('/{id}/edit', 'edit')->name('edit');
+                Route::get('/{id}', 'show')->name('show');
                 Route::put('/{id}', 'update')->name('update');
                 Route::delete('/{id}', 'destroy')->name('destroy');
             });

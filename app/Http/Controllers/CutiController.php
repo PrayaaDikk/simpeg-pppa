@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCutiRequest;
 use App\Http\Requests\UpdateCutiRequest;
 use App\Models\Cuti;
+use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CutiController extends Controller
 {
@@ -25,27 +27,46 @@ class CutiController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($pegawaiId)
     {
-        return view('admin.cuti.create');
+        $pegawai = Pegawai::find($pegawaiId);
+
+        return view('admin.cuti.create', compact('pegawai'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCutiRequest $request, $pegawaiId) {}
+    public function store(StoreCutiRequest $request)
+    {
+        $validated = $request->validated();
+
+        $validated['diajukan_oleh'] = $validated['pegawai_id'];
+        $validated['disetujui_oleh'] = Auth::user()->pegawai_id;
+
+        Cuti::create($validated);
+
+        return redirect()->route('admin.cuti.index')->with('success', 'Data cuti berhasil ditambahkan.');
+    }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show($id)
+    {
+        $cuti = Cuti::with('pegawai')->findOrFail($id);
+
+        return view('admin.cuti.show', compact('cuti'));
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $cuti = Cuti::with('pegawai')->findOrFail($id);
+
+        return view('admin.cuti.edit', compact('cuti'));
     }
 
     /**
@@ -53,11 +74,26 @@ class CutiController extends Controller
      */
     public function update(UpdateCutiRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $validated['diajukan_oleh'] = $validated['pegawai_id'];
+        $validated['disetujui_oleh'] = Auth::user()->pegawai_id;
+
+        $cuti = Cuti::findOrFail($id);
+
+        $cuti->update($validated);
+
+        return redirect()->route('admin.cuti.index')->with('success', 'Data cuti berhasil diubah.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) {}
+    public function destroy($id)
+    {
+        $cuti = Cuti::findOrFail($id);
+
+        $cuti->delete();
+
+        return redirect()->route('admin.cuti.index')->with('success', 'Data cuti berhasil dihapus.');
+    }
 }

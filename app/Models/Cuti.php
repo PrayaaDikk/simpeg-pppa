@@ -35,7 +35,7 @@ class Cuti extends Model
     protected static function booted()
     {
         static::saving(function ($model) {
-            $model->lama_cuti = $model->tanggal_selesai->diffInDays($model->tanggal_mulai);
+            $model->lama_cuti = $model->tanggal_mulai->diffInDays($model->tanggal_selesai);
         });
     }
 

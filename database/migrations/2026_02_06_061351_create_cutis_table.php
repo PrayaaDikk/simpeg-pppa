@@ -47,8 +47,8 @@ return new class extends Migration
                 'Tidak Disetujui'
             ])->default('Disetujui');
 
-            $table->foreignId('diajukan_oleh')->constrained('users');
-            $table->foreignId('disetujui_oleh')->nullable()->constrained('users');
+            $table->foreignId('diajukan_oleh')->constrained('pegawai');
+            $table->foreignId('disetujui_oleh')->nullable()->constrained('pegawai');
 
             $table->timestamps();
         });

@@ -32,6 +32,23 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'required' => 'Kolom :attribute wajib diisi',
+            'string' => 'Kolom :attribute harus berupa teks',
+            'email' => ':attribute tidak valid'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'email' => 'Email',
+            'password' => 'Kata Sandi',
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *

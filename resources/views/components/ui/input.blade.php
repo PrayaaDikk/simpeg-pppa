@@ -6,6 +6,7 @@
     'value' => '',
     'required' => false,
     'disabled' => false,
+    'readonly' => false,
 ])
 
 <div {{ $attributes->merge(['class' => 'w-full']) }}>
@@ -20,7 +21,7 @@
 
     <div class="relative">
         <input type="{{ $type }}" id="{{ $name }}" name="{{ $name }}"
-            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base peer focus:ring-primary focus:border-primary block w-full px-3 py-2.5 shadow-xs placeholder:text-muted @error($name) border-red-500 @enderror"
+            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base peer focus:ring-primary focus:border-primary block w-full px-3 py-2.5 shadow-xs placeholder:text-muted disabled:cursor-not-allowed @error($name) border-red-500 @enderror"
             placeholder="{{ $placeholder }}" {{ $required ? 'required' : '' }} value="{{ old($name, $value) }}"
             {{ $disabled ? 'disabled' : '' }} />
 

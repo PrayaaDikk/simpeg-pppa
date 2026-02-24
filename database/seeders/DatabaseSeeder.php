@@ -24,6 +24,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Pegawai::factory(10)->has(User::factory()->count(1))->create();
-        User::factory(2)->isAdmin()->create();
+        User::factory(['email' => 'fadilprayadika@gmail.com'])->isAdmin()->create();
     }
 }

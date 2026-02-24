@@ -14,6 +14,17 @@
 
         {{-- Main Content --}}
         <x-ui.detail-section>
+            <div class="flex items-center justify-end gap-4 max-xs:justify-start">
+                <a href="{{ route('admin.cuti.create', $pegawai->id) }}"
+                    class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary/90 focus:ring-4 focus:ring-primary-medium transition-colors">
+                    Buatkan Cuti
+                </a>
+                <a href=""
+                    class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary/90 focus:ring-4 focus:ring-brand-medium transition-colors">
+                    Buatkan KGB
+                </a>
+            </div>
+
             {{-- Informasi Identitas --}}
             <x-ui.detail-block title="Informasi Identitas Pegawai">
                 <div class="md:col-span-3">

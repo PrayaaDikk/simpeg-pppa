@@ -114,9 +114,9 @@ Breadcrumbs::for('admin.cuti.index', function (BreadcrumbTrail $trail) {
     $trail->push('Cuti Pegawai', route('admin.cuti.index'));
 });
 
-Breadcrumbs::for('admin.cuti.create', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.cuti.create', function (BreadcrumbTrail $trail, $pegawaiId) {
     $trail->parent('admin.cuti.index');
-    $trail->push('Tambah Cuti', route('admin.cuti.create'));
+    $trail->push('Tambah Cuti', route('admin.cuti.create', $pegawaiId));
 });
 
 Breadcrumbs::for('admin.cuti.show', function (BreadcrumbTrail $trail, Cuti $cuti) {

@@ -1,6 +1,6 @@
 @props(['cuti', 'atasan'])
 
-<x-ui.table class="flex-1" :headers="['No', 'Nama Pegawai', 'Jenis', 'Status', 'Atasan', 'Pejabat']">
+<x-ui.table class="flex-1" :headers="['No', 'Nama Pegawai', 'Jenis', 'Status', 'Atasan', 'Pejabat', '']">
     @if ($cuti->isNotEmpty())
         @foreach ($cuti as $item)
             <tr class="bg-neutral-primary border-b border-default">
