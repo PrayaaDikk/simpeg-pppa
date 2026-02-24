@@ -33,10 +33,9 @@ class RiwayatKepangkatanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRiwayatKepangkatanRequest $request, $pegawaiId)
+    public function store(StoreRiwayatKepangkatanRequest $request)
     {
         $validated = $request->validated();
-        $validated['pegawai_id'] = $pegawaiId;
 
         if ($request->hasFile('file_sk')) {
             $file = $request->file('file_sk');

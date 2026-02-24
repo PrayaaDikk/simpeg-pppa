@@ -2,7 +2,7 @@
     use App\Helpers\Helper;
 @endphp
 
-@extends('layouts.app')
+@extends('layouts.admin-app')
 
 @section('content')
     {{-- Header --}}

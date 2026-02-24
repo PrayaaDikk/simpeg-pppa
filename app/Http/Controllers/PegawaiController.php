@@ -52,7 +52,7 @@ class PegawaiController extends Controller
             $query->whereIn('bidang_id', $request->bidang);
         }
 
-        $pegawai = $query->paginate(10)->withQueryString();
+        $pegawai = $query->orderBy('nama', 'asc')->paginate(10)->withQueryString();
 
         // Get bidang options for filter
         $bidangOptions = Bidang::pluck('nama_bidang', 'id')->toArray();

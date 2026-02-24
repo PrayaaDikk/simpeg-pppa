@@ -12,6 +12,7 @@ class Cuti extends Model
     protected $table = 'cuti';
 
     protected $fillable = [
+        'pegawai_id',
         'jenis_cuti',
         'alasan_cuti',
         'tanggal_mulai',
@@ -25,6 +26,18 @@ class Cuti extends Model
         'diajukan_oleh',
         'disetujui_oleh',
     ];
+
+    protected $casts = [
+        'tanggal_mulai' => 'date',
+        'tanggal_selesai' => 'date',
+    ];
+
+    protected static function booted()
+    {
+        static::saving(function ($model) {
+            $model->lama_cuti = $model->tanggal_selesai->diffInDays($model->tanggal_mulai);
+        });
+    }
 
     public function pegawai()
     {

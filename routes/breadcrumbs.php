@@ -111,7 +111,7 @@ Breadcrumbs::for('admin.riwayat-jabatan.edit', function (BreadcrumbTrail $trail,
 // Cuti
 Breadcrumbs::for('admin.cuti.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin');
-    $trail->push('Cuti', route('admin.cuti.index'));
+    $trail->push('Cuti Pegawai', route('admin.cuti.index'));
 });
 
 Breadcrumbs::for('admin.cuti.create', function (BreadcrumbTrail $trail) {
@@ -122,4 +122,9 @@ Breadcrumbs::for('admin.cuti.create', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.cuti.show', function (BreadcrumbTrail $trail, Cuti $cuti) {
     $trail->parent('admin.cuti.index');
     $trail->push('Detail Cuti', route('admin.cuti.show', $cuti->id));
+});
+
+Breadcrumbs::for('admin.cuti.edit', function (BreadcrumbTrail $trail, Cuti $cuti) {
+    $trail->parent('admin.cuti.index');
+    $trail->push('Edit Cuti', route('admin.cuti.edit', $cuti->id));
 });

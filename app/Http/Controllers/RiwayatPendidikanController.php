@@ -30,10 +30,9 @@ class RiwayatPendidikanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRiwayatPendidikanRequest $request, $pegawaiId)
+    public function store(StoreRiwayatPendidikanRequest $request)
     {
         $validated = $request->validated();
-        $validated['pegawai_id'] = $pegawaiId;
 
         if ($request->hasFile('ijazah')) {
             $file = $request->file('ijazah');

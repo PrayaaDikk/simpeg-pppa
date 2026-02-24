@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCutiRequest;
+use App\Http\Requests\UpdateCutiRequest;
 use App\Models\Cuti;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CutiController extends Controller
@@ -12,7 +15,9 @@ class CutiController extends Controller
      */
     public function index()
     {
-        $cuti = Cuti::with('pegawai')->paginate(10);
+        $cuti = Cuti::with(['pegawai', 'penyetuju.pegawai'])
+            ->latest()
+            ->paginate(10);
 
         return view('admin.cuti.index', compact('cuti'));
     }
@@ -28,20 +33,12 @@ class CutiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(StoreCutiRequest $request, $pegawaiId) {}
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $cuti = Cuti::with('pegawai')->findOrFail($id);
-
-        return view('admin.cuti.show', compact('cuti'));
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -54,7 +51,7 @@ class CutiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCutiRequest $request, $id)
     {
         //
     }
@@ -62,10 +59,5 @@ class CutiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        Cuti::findOrFail($id)->delete();
-
-        return redirect()->route('admin.cuti.index')->with('success', 'Data cuti berhasil dihapus');
-    }
+    public function destroy(string $id) {}
 }

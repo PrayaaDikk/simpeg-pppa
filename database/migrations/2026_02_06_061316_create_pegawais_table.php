@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('tpt_lahir', 20);
             $table->string('telp', 15);
             $table->string('kode_pos', 5);
-            $table->string('alamat', 50);
+            $table->string('alamat', 100);
             $table->string('status_kawin', 15);
             $table->string('suami_istri', 45)->nullable();
             $table->string('sta_kerja_suami_istri', 15)->nullable();
@@ -49,6 +49,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pegawais');
+        Schema::dropIfExists('pegawai');
     }
 };

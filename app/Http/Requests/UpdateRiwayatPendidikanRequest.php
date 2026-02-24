@@ -22,7 +22,7 @@ class UpdateRiwayatPendidikanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'pegawai_id' => 'required|exists:pegawai,id',
+            'pegawai_id' => 'required|exists:pegawai,id',
             'tingkat' => 'required|in:SMA,D3,D4,S1,S2,S3',
             'jurusan' => 'required|string|max:100',
             'institusi' => 'required|string|max:150',

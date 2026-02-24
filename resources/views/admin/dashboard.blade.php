@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin-app')
 
 @section('content')
     <x-ui.header>Selamat Datang di SIMPEG-PPPA Kota Kendari</x-ui.header>

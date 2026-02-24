@@ -22,7 +22,7 @@ class StoreRiwayatKepangkatanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'pegawai_id' => 'required|exists:pegawai,id',
+            'pegawai_id' => 'required|exists:pegawai,id',
             'pangkat_id' => 'required|exists:pangkat,id',
             'tmt_pangkat' => 'required|date',
             'nomor_sk' => 'required|string|max:45',

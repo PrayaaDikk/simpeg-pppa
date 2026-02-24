@@ -10,7 +10,7 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: "Poppins", sans-serif;
+    --font-poppins: "Poppins", sans-serif;
 
     --color-primary: #5932ea;
     --color-secondary: #f8c301;

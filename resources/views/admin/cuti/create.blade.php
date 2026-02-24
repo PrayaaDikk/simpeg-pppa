@@ -1,16 +1,14 @@
-@extends('layouts.app')
-
-@section('header')
-    Tambah Cuti
-@endsection
+@extends('layouts.admin-app')
 
 @section('content')
+    {{-- Header --}}
+    <x-ui.header :back="route('admin.cuti.index')">Tambah Cuti</x-ui.header>
+
+    {{-- BreadCrumb --}}
+    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.cuti.create')" />
+
     {{-- Main Content --}}
     <section>
-
-        {{-- BreadCrumb --}}
-        <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.cuti.create')" />
-
         @if ($errors->any())
             <div class="my-5 p-4 bg-red-100 text-red-700 rounded-base">
                 <ul class="list-disc list-inside text-sm">
@@ -22,7 +20,7 @@
         @endif
 
         <div class="bg-white shadow-sm p-6 rounded-lg">
-            <x-admin.cuti.cuti-form />
+            <x-admin.cuti.form-add />
         </div>
 
     </section>

@@ -22,7 +22,7 @@ class UpdateRiwayatJabatanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'pegawai_id' => 'required|exists:pegawai,id',
+            'pegawai_id' => 'required|exists:pegawai,id',
             'tmt_jabatan' => 'required|date',
             'nama_jabatan' => 'required|string|max:100',
             'nomor_sk' => 'required|string|max:50',

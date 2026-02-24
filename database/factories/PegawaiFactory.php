@@ -12,39 +12,45 @@ class PegawaiFactory extends Factory
 
     public function definition(): array
     {
-        $usia = Carbon::parse('2005-08-17')->diff(now())->y;
+        // 1. Tentukan jenis kelamin & tanggal lahir dulu buat dasar NIP
+        $gender = $this->faker->randomElement(['L', 'P']);
+        $tglLahir = $this->faker->date('Y-m-d', '2005-12-31'); // Maksimal kelahiran 2005
+        $tglLahirClean = str_replace('-', '', $tglLahir);
+
+        // 2. Simulasi NIP (TglLahir + ThnAngkat + BlnAngkat + JnsKelamin + NoUrut)
+        $nip = $tglLahirClean . $this->faker->year() . '03' . ($gender == 'L' ? '1' : '2') . $this->faker->numerify('###');
 
         return [
-            'bidang_id' => 1,
+            'bidang_id' => $this->faker->numberBetween(1, 5), // Asumsi ada 5 bidang
+            'nip' => $nip,
+            'karpeg' => $this->faker->bothify('?? ######'), // Contoh: AB 123456
 
-            'nip' => '200508172024031001',
-            'karpeg' => null,
+            'nama' => $this->faker->name($gender == 'L' ? 'male' : 'female'),
+            'jns_kelamin' => $gender,
+            'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']),
 
-            'nama' => 'Fadil Prayadika',
-            'jns_kelamin' => 'L',
-            'agama' => 'Islam',
+            'tgl_lahir' => $tglLahir,
+            // Usia dihitung otomatis pakai Carbon dari tgl_lahir
+            'usia' => Carbon::parse($tglLahir)->diffInYears(now()),
 
-            'tgl_lahir' => '2005-08-17',
-            'usia' => $usia,
+            'tpt_lahir' => 'Kota Kendari', // Atau $this->faker->city()
+            'telp' => '08123456789',
+            'kode_pos' => '93121',
+            'alamat' => $this->faker->address(),
 
-            'tpt_lahir' => 'Kota Kendari',
-            'telp' => '082119498353',
-            'kode_pos' => '93121', // Contoh kodepos Kendari
-            'alamat' => 'Jl. Palapa, Kemaraya, Kendari Barat',
+            'status_kawin' => $this->faker->randomElement(['Kawin', 'Belum Kawin', 'Cerai']),
+            'suami_istri' => $gender == 'L' ? $this->faker->name('female') : $this->faker->name('male'),
+            'sta_kerja_suami_istri' => $this->faker->randomElement(['Kerja', 'Tidak Kerja']),
+            'jumlah_anak' => $this->faker->numberBetween(0, 4),
 
-            'status_kawin' => 'Kawin',
-            'suami_istri' => 'Afidelya Kanaya Ozara S.',
-            'sta_kerja_suami_istri' => 'Kerja',
-            'jumlah_anak' => 1,
+            'jns_karyawan' => $this->faker->randomElement(['PNS', 'PPPK', 'CPNS']),
 
-            'jns_karyawan' => 'PNS',
-
-            'jabatan' => 'Kepala Dinas',
-            'gol_ruang' => 'III/a',
-            'pangkat' => 'Penata Muda',
-            'tmt_pangkat' => '2024-03-10',
-            'masa_kerja_thn' => 1,
-            'masa_kerja_bln' => 11,
+            'jabatan' => $this->faker->jobTitle(),
+            'gol_ruang' => $this->faker->randomElement(['III/a', 'III/b', 'IV/a']),
+            'pangkat' => $this->faker->randomElement(['Penata Muda', 'Penata', 'Pembina']),
+            'tmt_pangkat' => $this->faker->date(),
+            'masa_kerja_thn' => $this->faker->numberBetween(1, 30),
+            'masa_kerja_bln' => $this->faker->numberBetween(1, 11),
             'foto' => null,
         ];
     }

@@ -4,7 +4,7 @@
     enctype="multipart/form-data" x-data="{ loading: false }" @submit="loading = true">
     @csrf
 
-    <input type="number" class="hidden" disabled name="pegawai_id" value="{{ $pegawaiId }}">
+    <x-ui.input type="hidden" name="pegawai_id" value="{{ $pegawaiId }}" />
 
     {{-- Pangkat - TMT Pangkat --}}
     <x-input-form-block>

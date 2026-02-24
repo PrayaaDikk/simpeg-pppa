@@ -32,7 +32,7 @@ class StorePegawaiRequest extends FormRequest
             'tpt_lahir' => 'required|string|max:20',
             'telp' => 'required|string|max:15',
             'kode_pos' => 'required|string|max:5',
-            'alamat' => 'required|string|max:50',
+            'alamat' => 'required|string|max:100',
             'status_kawin' => 'required|string|max:15',
             'suami_istri' => 'nullable|string|max:45',
             'sta_kerja_suami_istri' => 'nullable|string|max:15',
