@@ -30,7 +30,7 @@ return new class extends Migration
             $table->integer('lama_cuti');
             $table->text('alamat_cuti');
             $table->string('no_telp', 20);
-            $table->text('catatan_cuti');
+            $table->text('catatan_cuti')->nullable();
 
             $table->enum('status_cuti', [
                 'Menunggu',
@@ -38,17 +38,17 @@ return new class extends Migration
                 'Perubahan',
                 'Ditangguhkan',
                 'Ditolak'
-            ]);
+            ])->default('Menunggu');
 
             $table->enum('keputusan_atasan', [
                 'Disetujui',
                 'Perubahan',
                 'Ditangguhkan',
                 'Tidak Disetujui'
-            ]);
+            ])->default('Disetujui');
 
-            $table->foreignId('diajukan_oleh')->constrained('users');
-            $table->foreignId('disetujui_oleh')->nullable()->constrained('users');
+            $table->foreignId('diajukan_oleh')->constrained('pegawai');
+            $table->foreignId('disetujui_oleh')->nullable()->constrained('pegawai');
 
             $table->timestamps();
         });

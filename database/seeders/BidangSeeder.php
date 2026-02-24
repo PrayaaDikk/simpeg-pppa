@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Bidang;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class BidangSeeder extends Seeder
@@ -14,6 +13,7 @@ class BidangSeeder extends Seeder
     public function run(): void
     {
         $data = [
+            ['nama_bidang' => 'Dinas Pemberdayaan Perempuan dan Perlindungan Anak', 'akronim' => 'DP3A'],
             ['nama_bidang' => 'Sekretariat', 'akronim' => 'Sekretariat'],
             ['nama_bidang' => 'Perlindungan Hak Perempuan', 'akronim' => 'PHPP'],
             ['nama_bidang' => 'Perlindungan Kualitas Anak', 'akronim' => 'PKA'],
