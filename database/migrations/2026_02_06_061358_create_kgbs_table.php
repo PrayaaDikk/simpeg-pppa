@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kgb', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pegawai_id')->constrained('pegawai')->cascadeOnDelete();
-
+            $table->string('nomor_sk', 100);
             $table->decimal('gaji_lama', 12, 2);
             $table->decimal('gaji_baru', 12, 2);
             $table->date('tmt_gaji_lama');

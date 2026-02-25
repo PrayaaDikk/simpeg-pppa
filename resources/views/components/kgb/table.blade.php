@@ -23,7 +23,7 @@
                     </td>
 
                     <td class="px-6 py-4">
-                        {{ $item->nomor_surat ?? '-' }}
+                        {{ $item->nomor_sk ?? '-' }}
                     </td>
 
                     <td class="px-6 py-4">
@@ -46,16 +46,38 @@
                         <span class="px-2 py-1 text-xs rounded-full
                             {{ $item->status_kgb == 'disetujui'
                                 ? 'bg-green-100 text-green-700'
-                                : 'bg-yellow-100 text-yellow-700' }}">
+                                : ($item->status_kgb == 'ditolak'
+                                    ? 'bg-red-100 text-red-700'
+                                    : 'bg-yellow-100 text-yellow-700') }}">
                             {{ ucfirst($item->status_kgb) }}
                         </span>
                     </td>
 
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 space-x-2">
+
+                        {{-- Detail --}}
                         <a href="{{ route('kgb.show', $item->id) }}"
                             class="text-primary hover:underline text-xs">
-                            Detail
+                            Lihat
                         </a>
+
+                        {{-- Edit (hanya jika ditolak) --}}
+                        @if($item->status_kgb == 'ditolak')
+                            <a href="{{ route('kgb.edit', $item->id) }}"
+                                class="text-blue-600 hover:underline text-xs">
+                                Edit
+                            </a>
+                        @endif
+
+                        {{-- Download SK --}}
+                        @if($item->file_sk)
+                            <a href="{{ asset('storage/' . $item->file_sk) }}"
+                                target="_blank"
+                                class="text-green-600 hover:underline text-xs">
+                                Download SK
+                            </a>
+                        @endif
+
                     </td>
 
                 </tr>

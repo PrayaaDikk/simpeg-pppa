@@ -123,3 +123,18 @@ Breadcrumbs::for('admin.cuti.show', function (BreadcrumbTrail $trail, Cuti $cuti
     $trail->parent('admin.cuti.index');
     $trail->push('Detail Cuti', route('admin.cuti.show', $cuti->id));
 });
+
+// KGB
+Breadcrumbs::for('kgb.index', function ($trail) {
+    $trail->push('KGB', route('kgb.index'));
+});
+
+Breadcrumbs::for('kgb.create', function ($trail) {
+    $trail->parent('kgb.index');
+    $trail->push('Ajukan KGB', route('kgb.create'));
+});
+
+Breadcrumbs::for('kgb.edit', function ($trail, $id) {
+    $trail->parent('kgb.index');
+    $trail->push('Edit KGB', route('kgb.edit', $id));
+});

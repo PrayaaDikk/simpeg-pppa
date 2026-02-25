@@ -11,6 +11,9 @@ class Kgb extends Model
     protected $table = "kgb";
 
     protected $fillable = [
+        'pegawai_id',
+        'nomor_sk',
+        'tanggal_surat',
         'gaji_lama',
         'gaji_baru',
         'tmt_gaji_lama',
@@ -20,6 +23,9 @@ class Kgb extends Model
         'masa_kerja_baru',
         'golongan_lama',
         'golongan_baru',
+        'pejabat_penetap',
+        'nip_pejabat',
+        'file_sk',
         'status_kgb',
         'diajukan_oleh',
         'disetujui_oleh',

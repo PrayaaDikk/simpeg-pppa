@@ -26,7 +26,7 @@
 
         @if (isset($icon))
             <div
-                class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none peer-focus-within:text-primary">
+                class="absolute inset-y-0 right-0 flex items-center pr-3 peer-focus-within:text-primary {{ $type !== 'date' ? 'pointer-events-none' : '' }}">
                 {!! $icon !!}
             </div>
         @endif

@@ -7,8 +7,8 @@
         Informasi Pegawai DP3A Kota Kendari
     </x-ui.header>
 
-    <!-- {{-- Breadcrumb --}}
-    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.pegawai.index')" /> -->
+    {{-- Breadcrumb --}}
+    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('kgb.index')" />
 
     <section>
 
