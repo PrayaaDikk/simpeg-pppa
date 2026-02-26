@@ -20,7 +20,7 @@
         @endif
 
         <div class="bg-white shadow-sm p-6 rounded-lg">
-            <x-admin.cuti.form-add :pegawai="$pegawai" />
+            <x-cuti.form-add :pegawai="$pegawai" />
         </div>
 
     </section>

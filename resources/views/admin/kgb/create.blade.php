@@ -2,10 +2,12 @@
 
 @section('content')
     {{-- Header --}}
-    <x-ui.header>Edit Data Riwayat Pangkat</x-ui.header>
+    <x-ui.header :back="route('admin.kgb.index')">Tambah KGB</x-ui.header>
 
-    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.riwayat-jabatan.edit', $riwayatJabatan->id)" />
+    {{-- BreadCrumb --}}
+    <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.kgb.create', $pegawai->id)" />
 
+    {{-- Main Content --}}
     <section>
         @if ($errors->any())
             <div class="my-5 p-4 bg-red-100 text-red-700 rounded-base">
@@ -18,7 +20,7 @@
         @endif
 
         <div class="bg-white shadow-sm p-6 rounded-lg">
-            <x-riwayat-jabatan.form-edit :riwayatJabatan="$riwayatJabatan" />
+            <x-kgb.form-add :pegawai="$pegawai" />
         </div>
 
     </section>

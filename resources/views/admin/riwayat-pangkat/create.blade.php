@@ -20,7 +20,7 @@
         @endif
 
         <div class="bg-white shadow-sm p-6 rounded-lg">
-            <x-admin.riwayat-pangkat.form-add :pegawaiId="$pegawaiId" :pangkat="$pangkat" />
+            <x-riwayat-pangkat.form-add :pegawaiId="$pegawaiId" :pangkat="$pangkat" />
         </div>
 
     </section>

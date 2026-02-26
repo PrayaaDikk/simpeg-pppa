@@ -4,7 +4,9 @@
     @if ($pegawai->isNotEmpty())
         @foreach ($pegawai as $item)
             <tr class="bg-neutral-primary border-b border-default">
-                <td class="px-6 py-4">{{ ($pegawai->currentPage() - 1) * $pegawai->perPage() + $loop->iteration }}</td>
+                <td class="px-6 py-4">
+                    {{ $loop->iteration }}
+                </td>
                 <td class="px-6 py-4">{{ $item->nama }}</td>
                 <td class="px-6 py-4">{{ $item->nip }}</td>
                 <td class="px-6 py-4">{{ $item->gol_ruang }}</td>
@@ -17,8 +19,9 @@
         @endforeach
     @else
         <tr class="bg-neutral-primary border-b border-default">
-            <td class="px-6 py-4 text-center" colspan="6">Tidak ada data pegawai</td>
+            <td class="px-6 py-4 text-center" colspan="6">Tidak ada riwayat pendidikan</td>
         </tr>
+
     @endif
 
 </x-ui.table>

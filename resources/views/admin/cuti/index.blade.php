@@ -18,7 +18,7 @@
         @endif
 
         <div class="bg-white shadow-sm rounded-lg ">
-            <x-admin.cuti.table :cuti="$cuti" />
+            <x-cuti.table :cuti="$cuti" />
         </div>
     </section>
 @endsection

@@ -18,7 +18,7 @@
         @endif
 
         <div class="bg-white shadow-sm p-6 rounded-lg">
-            <x-admin.pegawai.form-edit :pegawai="$pegawai" :pangkat="$pangkat" :bidang="$bidang" />
+            <x-pegawai.form-edit :pegawai="$pegawai" :pangkat="$pangkat" :bidang="$bidang" />
         </div>
 
     </section>

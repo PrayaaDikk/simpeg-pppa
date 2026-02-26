@@ -18,7 +18,7 @@
         @endif
 
         <div class="bg-white shadow-sm p-6 rounded-lg">
-            <x-admin.riwayat-pendidikan.form-edit :riwayatPendidikan="$riwayatPendidikan" />
+            <x-riwayat-pendidikan.form-edit :riwayatPendidikan="$riwayatPendidikan" />
         </div>
 
     </section>

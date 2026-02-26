@@ -18,7 +18,7 @@
         @endif
 
         <div class="bg-white shadow-sm p-6 rounded-lg">
-            <x-admin.riwayat-pangkat.form-edit :riwayatPangkat="$riwayatPangkat" :pangkat="$pangkat" />
+            <x-riwayat-pangkat.form-edit :riwayatPangkat="$riwayatPangkat" :pangkat="$pangkat" />
         </div>
 
     </section>

@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisterRequest $request): RedirectResponse
     {
-        $request->validate();
+        $request->validated();
 
         $pegawai = Pegawai::where('nip', $request->nip)->first();
 

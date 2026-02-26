@@ -38,7 +38,7 @@
                 </a>
             </div>
 
-            <x-admin.riwayat-jabatan.table :riwayatJabatan="$riwayatJabatan" />
+            <x-riwayat-jabatan.table :riwayatJabatan="$riwayatJabatan" />
         </div>
     </section>
 @endsection

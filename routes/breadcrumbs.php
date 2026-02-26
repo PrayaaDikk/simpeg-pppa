@@ -3,6 +3,7 @@
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
 use App\Models\Cuti;
+use App\Models\Kgb;
 use App\Models\Pegawai;
 use App\Models\RiwayatJabatan;
 use App\Models\RiwayatKepangkatan;
@@ -132,4 +133,19 @@ Breadcrumbs::for('admin.cuti.edit', function (BreadcrumbTrail $trail, Cuti $cuti
 Breadcrumbs::for('admin.kgb.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin');
     $trail->push('Kgb', route('admin.kgb.index'));
+});
+
+Breadcrumbs::for('admin.kgb.create', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('admin.kgb.index');
+    $trail->push('Tambah Kgb', route('admin.kgb.create', $pegawaiId));
+});
+
+Breadcrumbs::for('admin.kgb.show', function (BreadcrumbTrail $trail, Kgb $kgb) {
+    $trail->parent('admin.kgb.index');
+    $trail->push('Detail Kgb', route('admin.kgb.show', $kgb->id));
+});
+
+Breadcrumbs::for('admin.kgb.edit', function (BreadcrumbTrail $trail, Kgb $kgb) {
+    $trail->parent('admin.kgb.index');
+    $trail->push('Edit Kgb', route('admin.kgb.edit', $kgb->id));
 });

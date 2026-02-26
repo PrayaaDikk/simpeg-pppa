@@ -29,7 +29,7 @@ class CutiController extends Controller
      */
     public function create($pegawaiId)
     {
-        $pegawai = Pegawai::find($pegawaiId);
+        $pegawai = Pegawai::findOrFail($pegawaiId);
 
         return view('admin.cuti.create', compact('pegawai'));
     }

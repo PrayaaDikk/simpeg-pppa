@@ -38,7 +38,7 @@
                 </a>
             </div>
 
-            <x-admin.riwayat-pendidikan.riwayat-pendidikan-list-table :riwayatPendidikan="$riwayatPendidikan" />
+            <x-riwayat-pendidikan.riwayat-pendidikan-list-table :riwayatPendidikan="$riwayatPendidikan" />
         </div>
     </section>
 @endsection

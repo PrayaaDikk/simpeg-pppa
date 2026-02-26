@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CutiController;
+use App\Http\Controllers\KgbController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RiwayatJabatanController;
@@ -77,6 +78,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
         Route::prefix('cuti')->group(function () {
             Route::controller(CutiController::class)->as('cuti.')->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create/{pegawaiId}', 'create')->name('create');
+                Route::post('/store', 'store')->name('store');
+
+                Route::get('/{id}/edit', 'edit')->name('edit');
+                Route::get('/{id}', 'show')->name('show');
+                Route::put('/{id}', 'update')->name('update');
+                Route::delete('/{id}', 'destroy')->name('destroy');
+            });
+        });
+
+        Route::prefix('kgb')->group(function () {
+            Route::controller(KgbController::class)->as('kgb.')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/create/{pegawaiId}', 'create')->name('create');
                 Route::post('/store', 'store')->name('store');

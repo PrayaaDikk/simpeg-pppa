@@ -20,7 +20,7 @@
         @endforeach
     @else
         <tr class="bg-neutral-primary border-b border-default">
-            <td class="px-6 py-4 text-center" colspan="6">Tidak ada data cuti</td>
+            <td class="px-6 py-4 text-center" colspan="7">Tidak ada data cuti</td>
         </tr>
     @endif
 

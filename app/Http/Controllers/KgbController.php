@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kgb;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KgbController extends Controller
 {
@@ -12,16 +14,21 @@ class KgbController extends Controller
      */
     public function index()
     {
-        $kgb = Kgb::all();
+        $kgb = Kgb::query()->with('pegawai')->when(Auth::user()->role !== 'Admin', function ($query) {
+            $query->where('pegawai_id', Auth::id());
+        })->get();
+
         return view('admin.kgb.index', compact('kgb'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($pegawaiId)
     {
-        //
+        $pegawai = Pegawai::findOrFail($pegawaiId);
+
+        return view('admin.kgb.create', compact('pegawai'));
     }
 
     /**

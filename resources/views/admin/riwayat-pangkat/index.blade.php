@@ -38,7 +38,7 @@
                 </a>
             </div>
 
-            <x-admin.riwayat-pangkat.riwayat-pangkat-list-table :riwayatPangkat="$riwayatPangkat" />
+            <x-riwayat-pangkat.riwayat-pangkat-list-table :riwayatPangkat="$riwayatPangkat" />
         </div>
     </section>
 @endsection
