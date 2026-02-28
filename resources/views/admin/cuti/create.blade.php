@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- Header --}}
-    <x-ui.header :back="route('admin.cuti.index')">Tambah Cuti</x-ui.header>
+    <x-ui.header :back="route('admin.pegawai.show', $pegawai)">Tambah Cuti</x-ui.header>
 
     {{-- BreadCrumb --}}
     <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.cuti.create', $pegawai->id)" />

@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
         Pegawai::factory(27)->has(User::factory()->count(1))->create();
         Pegawai::factory(2)->has(User::factory()->count(1))->not_active()->keterangan()->create();
         User::factory(['email' => 'fadilprayadika@gmail.com'])->isAdmin()->create();
+
+        $this->call(CutiSeeder::class);
     }
 }

@@ -15,11 +15,30 @@ class CutiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cuti = Cuti::with(['pegawai', 'penyetuju.pegawai'])
-            ->latest()
-            ->paginate(10);
+        $query = Cuti::with(['pegawai']);
+
+        // Search
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('jenis_cuti', 'LIKE', "%{$search}%")
+                    ->orWhereHas('pegawai', function ($subQuery) use ($search) {
+                        $subQuery->where('nama', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
+
+        if ($request->filled('jenis_cuti')) {
+            $query->whereIn('jenis_cuti', $request->jenis_cuti);
+        }
+
+        if ($request->filled('status_cuti')) {
+            $query->whereIn('status_cuti', $request->status_cuti);
+        }
+
+        $cuti = $query->paginate(10)->withQueryString();
 
         return view('admin.cuti.index', compact('cuti'));
     }
@@ -40,10 +59,21 @@ class CutiController extends Controller
     public function store(StoreCutiRequest $request)
     {
         $validated = $request->validated();
+        $pegawai = Pegawai::findOrFail($validated['pegawai_id']);
+
+        // Hitung durasi (Sama dengan logika di Model: selisih hari + 1)
+        $tglMulai = Carbon::parse($validated['tanggal_mulai']);
+        $tglSelesai = Carbon::parse($validated['tanggal_selesai']);
+        $durasiDiajukan = $tglMulai->diffInDays($tglSelesai) + 1;
+
+        // Validasi kuota
+        if ($durasiDiajukan > $pegawai->kuota_cuti) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => "Gagal! Durasi cuti ($durasiDiajukan hari) melebihi sisa kuota ({$pegawai->kuota_cuti} hari)."]);
+        }
 
         $validated['diajukan_oleh'] = $validated['pegawai_id'];
-        $validated['disetujui_oleh'] = Auth::user()->pegawai_id;
-
         Cuti::create($validated);
 
         return redirect()->route('admin.cuti.index')->with('success', 'Data cuti berhasil ditambahkan.');
@@ -75,9 +105,8 @@ class CutiController extends Controller
     public function update(UpdateCutiRequest $request, $id)
     {
         $validated = $request->validated();
-        $validated['diajukan_oleh'] = $validated['pegawai_id'];
-        $validated['disetujui_oleh'] = Auth::user()->pegawai_id;
 
+        $validated['diajukan_oleh'] = $validated['pegawai_id'];
         $cuti = Cuti::findOrFail($id);
 
         $cuti->update($validated);

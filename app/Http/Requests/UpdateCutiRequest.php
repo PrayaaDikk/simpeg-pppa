@@ -23,15 +23,18 @@ class UpdateCutiRequest extends FormRequest
     {
         return [
             'pegawai_id'      => 'exists:pegawai,id',
-            'jenis_cuti'      => 'required|in:Tahunan,Besar,Sakit,Melahirkan,Alasan Penting,Di Luar Tanggungan Negara',
-            'alasan_cuti'     => 'required|string|min:5',
+            'jenis_cuti'      => 'required|in:Tahunan,Besar,Sakit,Melahirkan,Alasan Penting,Diluar Tanggungan Negara',
+            'n' => 'nullable|min:0',
+            'n_1' => 'nullable|min:0',
+            'n_2' => 'nullable|min:0',
+            'alasan_cuti'     => 'nullable|string|min:5',
             'tanggal_mulai'   => 'required|date|after_or_equal:today',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-            // 'lama_cuti'       => 'required|integer|min:1',
             'alamat_cuti'     => 'required|string',
             'no_telp'         => 'required|string|max:20',
-            // Catatan cuti opsional saat awal pengajuan
             'catatan_cuti'    => 'nullable|string',
+            'status_cuti' => 'required|in:Menunggu,Disetujui,Perubahan,Ditangguhkan,Tidak disetujui',
+            'keputusan_atasan' => 'required|in:Menunggu,Disetujui,Perubahan,Ditangguhkan,Tidak disetujui'
         ];
     }
 
@@ -66,6 +69,8 @@ class UpdateCutiRequest extends FormRequest
             'lama_cuti' => 'Lama Hari Cuti',
             'alamat_cuti' => 'Alamat Selama Cuti',
             'no_telp' => 'Nomor Telepon',
+            'status_cuti' => 'Status Cuti',
+            'keputusan_atasan' => 'Keputusan Atasan',
         ];
     }
 }

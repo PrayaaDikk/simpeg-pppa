@@ -54,16 +54,6 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-/* Menghilangkan ikon kalender, waktu, dan list */
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="datetime-local"]::-webkit-calendar-picker-indicator,
-input[type="month"]::-webkit-calendar-picker-indicator,
-input[type="week"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-}
-
 /* Menghilangkan ikon pencarian (search) */
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,

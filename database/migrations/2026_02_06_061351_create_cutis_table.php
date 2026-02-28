@@ -16,15 +16,15 @@ return new class extends Migration
             $table->foreignId('pegawai_id')->constrained('pegawai')->cascadeOnDelete();
 
             $table->enum('jenis_cuti', [
-                'tahunan',
-                'besar',
-                'sakit',
-                'melahirkan',
-                'alasan penting',
-                'di luar tanggungan negara'
+                'Tahunan',
+                'Besar',
+                'Sakit',
+                'Melahirkan',
+                'Alasan Penting',
+                'Diluar Tanggungan Negara'
             ]);
 
-            $table->text('alasan_cuti');
+            $table->text('alasan_cuti')->nullable();
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->integer('lama_cuti');
@@ -35,23 +35,22 @@ return new class extends Migration
             $table->text('catatan_cuti')->nullable();
 
             $table->enum('status_cuti', [
-                'menunggu',
-                'disetujui',
-                'perubahan',
-                'ditangguhkan',
-                'ditolak'
-            ])->default('menunggu');
+                'Menunggu',
+                'Disetujui',
+                'Perubahan',
+                'Ditangguhkan',
+                'Tidak disetujui'
+            ])->default('Menunggu');
 
             $table->enum('keputusan_atasan', [
-                'disetujui',
-                'perubahan',
-                'ditangguhkan',
-                'tidak disetujui'
-            ])->default('ditangguhkan');
+                'Menunggu',
+                'Disetujui',
+                'Perubahan',
+                'Ditangguhkan',
+                'Tidak disetujui'
+            ])->default('Menunggu');
 
             $table->foreignId('diajukan_oleh')->constrained('pegawai');
-            $table->foreignId('disetujui_oleh')->nullable()->constrained('pegawai');
-
             $table->timestamps();
         });
     }
