@@ -21,9 +21,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BidangSeeder::class,
             PangkatSeeder::class,
+            JabatanSeeder::class,
         ]);
 
-        Pegawai::factory(10)->has(User::factory()->count(1))->create();
+
+        Pegawai::factory(27)->has(User::factory()->count(1))->create();
+        Pegawai::factory(2)->has(User::factory()->count(1))->not_active()->keterangan()->create();
         User::factory(['email' => 'fadilprayadika@gmail.com'])->isAdmin()->create();
     }
 }

@@ -1,4 +1,4 @@
-@props(['pangkat', 'bidang'])
+@props(['pangkat', 'bidang', 'jabatan'])
 
 <form class="max-w-5xl mx-auto" action="{{ route('admin.pegawai.store') }}" method="POST" enctype="multipart/form-data"
     x-data="{ loading: false }" @submit="loading = true">
@@ -66,16 +66,20 @@
 
     {{-- Jabatan - Bidang --}}
     <x-input-form-block>
-        <x-ui.input name="jabatan" label="Jabatan" placeholder="Jabatan" required />
+        <x-ui.select name="jabatan_id" label="Jabatan" :options="$jabatan
+            ->map(function ($item) {
+                return ['value' => $item->id, 'label' => $item->nama_jabatan];
+            })
+            ->toArray()" required />
         <x-ui.select name="bidang_id" label="Bidang" :options="$bidang
             ->map(function ($item) {
                 return ['value' => $item->id, 'label' => $item->nama_bidang];
             })
-            ->toArray()" required />
+            ->toArray()" />
     </x-input-form-block>
 
-    {{-- TMT Pangkat --}}
-    <x-ui.input type="date" name="tmt_pangkat" label="TMT Pangkat" placeholder="dd-mm-yyyy" required class="mb-5">
+    {{-- TMT Pegawai --}}
+    <x-ui.input type="date" name="tmt_pegawai" label="TMT Pegawai" placeholder="dd-mm-yyyy" required class="mb-5">
         <x-slot:icon>
             <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" class="size-5"
                 xmlns="http://www.w3.org/2000/svg">
@@ -125,6 +129,6 @@
 
     <button type="submit" :disabled="loading"
         class="text-white bg-primary box-border border border-transparent hover:bg-primary/90 focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
-        :class="{ loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer' }">Tambah
+        :class="loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'">Tambah
         Pegawai</button>
 </form>

@@ -29,7 +29,7 @@
 
                 <x-ui.detail-item title="Jenis Kelamin" :value="$riwayatPendidikan->pegawai->jns_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'" />
                 <x-ui.detail-item title="Agama" :value="$riwayatPendidikan->pegawai->agama" />
-                <x-ui.detail-item title="Usia" :value="$riwayatPendidikan->pegawai->usia . ' tahun'" />
+                <x-ui.detail-item title="Usia" :value="$riwayatPendidikan->pegawai->calculateAge() . ' tahun'" />
 
                 <x-ui.detail-item title="Tempat Lahir" :value="$riwayatPendidikan->pegawai->tpt_lahir" />
                 <x-ui.detail-item title="Tanggal Lahir" :value="Helper::formatedDate($riwayatPendidikan->pegawai->tgl_lahir)" />

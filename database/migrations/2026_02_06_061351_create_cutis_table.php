@@ -16,36 +16,38 @@ return new class extends Migration
             $table->foreignId('pegawai_id')->constrained('pegawai')->cascadeOnDelete();
 
             $table->enum('jenis_cuti', [
-                'Tahunan',
-                'Besar',
-                'Sakit',
-                'Melahirkan',
-                'Alasan Penting',
-                'Di Luar Tanggungan Negara'
+                'tahunan',
+                'besar',
+                'sakit',
+                'melahirkan',
+                'alasan penting',
+                'di luar tanggungan negara'
             ]);
 
             $table->text('alasan_cuti');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->integer('lama_cuti');
+
+
             $table->text('alamat_cuti');
             $table->string('no_telp', 20);
             $table->text('catatan_cuti')->nullable();
 
             $table->enum('status_cuti', [
-                'Menunggu',
-                'Disetujui',
-                'Perubahan',
-                'Ditangguhkan',
-                'Ditolak'
-            ])->default('Menunggu');
+                'menunggu',
+                'disetujui',
+                'perubahan',
+                'ditangguhkan',
+                'ditolak'
+            ])->default('menunggu');
 
             $table->enum('keputusan_atasan', [
-                'Disetujui',
-                'Perubahan',
-                'Ditangguhkan',
-                'Tidak Disetujui'
-            ])->default('Disetujui');
+                'disetujui',
+                'perubahan',
+                'ditangguhkan',
+                'tidak disetujui'
+            ])->default('ditangguhkan');
 
             $table->foreignId('diajukan_oleh')->constrained('pegawai');
             $table->foreignId('disetujui_oleh')->nullable()->constrained('pegawai');

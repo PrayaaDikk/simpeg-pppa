@@ -34,10 +34,12 @@
 
     {{-- File Ijazah --}}
     <div class="mb-5">
-        <label class="block mb-1.5 text-sm font-medium text-heading" for="file_input">Unggah File Ijazah</label>
+        <label class="block mb-1.5 text-sm font-medium text-heading" for="file_input">Unggah File Ijazah
+            <span class="text-red-500">*</span>
+        </label>
         <input
             class="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-primary focus:border-primary block w-full shadow-xs placeholder:text-muted"
-            id="file_input" type="file" name="ijazah" accept="pdf" />
+            id="file_input" type="file" name="ijazah" accept="pdf" required />
 
     </div>
 

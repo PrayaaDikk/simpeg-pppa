@@ -23,13 +23,14 @@ class Pegawai extends Model
 
     protected $fillable = [
         'bidang_id',
+        'jabatan_id',
+        'atasan_id',
         'nip',
         'nama',
         'karpeg',
         'jns_kelamin',
         'agama',
         'tgl_lahir',
-        'usia',
         'tpt_lahir',
         'pendidikan',
         'telp',
@@ -40,27 +41,34 @@ class Pegawai extends Model
         'sta_kerja_suami_istri',
         'jumlah_anak',
         'jns_karyawan',
-        'jabatan',
         'gol_ruang',
         'pangkat',
-        'tmt_pangkat',
-        'masa_kerja_thn',
-        'masa_kerja_bln',
+        'tmt_pegawai',
+        'kuota_cuti',
+        'is_active',
+        'keterangan',
         'foto',
     ];
 
     protected $casts = [
         'tgl_lahir' => 'date',
-        'tmt_pangkat' => 'date',
+        'tmt_pegawai' => 'date',
         'jumlah_anak' => 'integer',
-        'usia' => 'integer',
-        'masa_kerja_thn' => 'integer',
-        'masa_kerja_bln' => 'integer',
     ];
 
     public function bidang()
     {
         return $this->belongsTo(Bidang::class);
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class);
+    }
+
+    public function atasan()
+    {
+        return $this->belongsTo(Pegawai::class);
     }
 
     public function user()
@@ -101,12 +109,18 @@ class Pegawai extends Model
         ]);
     }
 
+    public function getMasaKerja()
+    {
+        $masaKerja = $this->calculateMasaKerja($this->tmt_pangkat);
+        return $masaKerja['tahun'] . ' Tahun ' . $masaKerja['bulan'] . ' Bulan';
+    }
+
     public static function getTotalGender()
     {
         return [
-            'total' => Pegawai::count(),
-            'lakiLaki' => Pegawai::where('jns_kelamin', 'L')->count(),
-            'perempuan' => Pegawai::where('jns_kelamin', 'P')->count(),
+            'total' => Pegawai::where('is_active', 1)->count(),
+            'lakiLaki' => Pegawai::where('is_active', 1)->where('jns_kelamin', 'L')->count(),
+            'perempuan' => Pegawai::where('is_active', 1)->where('jns_kelamin', 'P')->count(),
         ];
     }
 
@@ -114,7 +128,6 @@ class Pegawai extends Model
     public function setTglLahirAttribute($value)
     {
         $this->attributes['tgl_lahir'] = $value;
-        $this->attributes['usia'] = $this->calculateAge($value);
     }
 
     public function setTmtPangkatAttribute($value)
@@ -126,22 +139,26 @@ class Pegawai extends Model
     }
 
     // Helper Methods
-    public function calculateAge($tglLahir)
+    public function calculateAge()
     {
-        return Carbon::parse($tglLahir)->age;
+        return Carbon::parse($this->attributes['tgl_lahir'])->age;
     }
 
-    public function calculateMasaKerja($tmtPangkat)
+    public function calculateMasaKerja($tmt_pegawai)
     {
-        $tmt = Carbon::parse($tmtPangkat);
-        $now = Carbon::now();
+        if (!$tmt_pegawai) {
+            return ['tahun' => 0, 'bulan' => 0];
+        }
 
-        $tahun = $now->diffInYears($tmt);
-        $bulan = $now->copy()->subYears($tahun)->diffInMonths($tmt);
+        $tmt = \Carbon\Carbon::parse($tmt_pegawai);
+        $now = \Carbon\Carbon::now();
+
+        // Menggunakan diff() untuk mendapatkan objek DateInterval yang akurat
+        $diff = $tmt->diff($now);
 
         return [
-            'tahun' => $tahun,
-            'bulan' => $bulan,
+            'tahun' => $diff->y, // y adalah property untuk tahun
+            'bulan' => $diff->m, // m adalah property untuk bulan
         ];
     }
 

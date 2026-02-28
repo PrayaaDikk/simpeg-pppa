@@ -1,4 +1,4 @@
-@props(['pegawai', 'pangkat', 'bidang'])
+@props(['pegawai', 'pangkat', 'bidang', 'jabatan'])
 
 <form class="max-w-5xl mx-auto" action="{{ route('admin.pegawai.update', $pegawai->id) }}" method="POST"
     enctype="multipart/form-data" x-data="{ loading: false }" @submit="loading = true">
@@ -67,16 +67,20 @@
 
     {{-- Jabatan - Bidang --}}
     <x-input-form-block>
-        <x-ui.input name="jabatan" label="Jabatan" placeholder="Analis Kebijakan" :value="old('jabatan', $pegawai->jabatan)" required />
+        <x-ui.select name="jabatan_id" label="Jabatan" :options="$jabatan
+            ->map(function ($item) {
+                return ['value' => $item->id, 'label' => $item->nama_jabatan];
+            })
+            ->toArray()" :value="old('jabatan_id', $pegawai->jabatan_id)" required />
         <x-ui.select name="bidang_id" label="Bidang" :options="$bidang
             ->map(function ($item) {
                 return ['value' => $item->id, 'label' => $item->nama_bidang];
             })
-            ->toArray()" :value="old('bidang_id', $pegawai->bidang_id)" required />
+            ->toArray()" :value="old('bidang_id', $pegawai->bidang_id)" />
     </x-input-form-block>
 
-    {{-- TMT Pangkat --}}
-    <x-ui.input type="date" name="tmt_pangkat" label="TMT Pangkat" :value="old('tmt_pangkat', $pegawai->tmt_pangkat ? $pegawai->tmt_pangkat->format('Y-m-d') : '')" required class="mb-5">
+    {{-- TMT Pegawai --}}
+    <x-ui.input type="date" name="tmt_pegawai" label="TMT Pegawaia" :value="old('tmt_pegawai', $pegawai->tmt_pegawai ? $pegawai->tmt_pegawai->format('Y-m-d') : '')" required class="mb-5">
         <x-slot:icon>
             <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" class="size-5"
                 xmlns="http://www.w3.org/2000/svg">
@@ -112,6 +116,20 @@
         <x-ui.input name="sta_kerja_suami_istri" label="Status Kerja Pasangan"
             placeholder="PNS / Swasta / Tidak Bekerja" :value="old('sta_kerja_suami_istri', $pegawai->sta_kerja_suami_istri)" />
         <x-ui.input name="jumlah_anak" label="Jumlah Anak" placeholder="0" type="number" :value="old('jumlah_anak', $pegawai->jumlah_anak)" required />
+    </x-input-form-block>
+
+    <x-input-form-block>
+        <x-ui.input name="kuota_cuti" label="Kuota Cuti" placeholder="e.g. 12" type="number" :value="old('kuota_cuti', $pegawai->kuota_cuti)" />
+    </x-input-form-block>
+
+    {{-- Status Pegawai --}}
+    <x-input-form-block>
+        <x-ui.select name="is_active" label="Status Pegawai" :options="[['value' => '1', 'label' => 'Aktif'], ['value' => '0', 'label' => 'Tidak Aktif']]" :value="old('is_active', $pegawai->is_active)" />
+    </x-input-form-block>
+
+    {{-- Keterangan jika tidak aktif --}}
+    <x-input-form-block>
+        <x-ui.textarea name="keterangan" label="Keterangan" placeholder="e.g. Mutasi" :value="old('keterangan', $pegawai->keterangan)" />
     </x-input-form-block>
 
     {{-- Foto --}}

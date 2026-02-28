@@ -14,7 +14,7 @@
                 <tr class="bg-neutral-primary border-b border-default">
                     <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
                         {{ $loop->iteration }}</th>
-                    <td class="px-6 py-4">{{ $item->first()->bidang->nama_bidang }}</td>
+                    <td class="px-6 py-4">{{ $item->first()->bidang->nama_bidang ?? 'Pimpinan / Non Bidang' }}</td>
                     <td class="px-6 py-4">{{ $item->count() }}</td>
                     <td class="px-6 py-4">
                         {{ StatsHelper::calculatePercentage($item->count(), $total) }}

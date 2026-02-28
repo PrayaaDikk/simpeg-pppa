@@ -37,7 +37,7 @@
 
                 <x-ui.detail-item title="Jenis Kelamin" :value="$pegawai->jns_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'" />
                 <x-ui.detail-item title="Agama" :value="$pegawai->agama" />
-                <x-ui.detail-item title="Usia" :value="$pegawai->usia . ' tahun'" />
+                <x-ui.detail-item title="Usia" :value="$pegawai->calculateAge() . ' tahun'" />
 
                 <x-ui.detail-item title="Tempat Lahir" :value="$pegawai->tpt_lahir" />
                 <x-ui.detail-item title="Tanggal Lahir" :value="$pegawai->tgl_lahir->format('d M Y')" />
@@ -70,16 +70,36 @@
             {{-- Informasi Kepegawaian & Jabatan --}}
             <x-ui.detail-block title="Informasi Kepegawaian & Jabatan">
                 <x-ui.detail-item title="Jenis Pegawai" :value="$pegawai->jns_karyawan" />
-                <x-ui.detail-item title="Bidang" :value="$pegawai->bidang_id != 1 ? $pegawai->bidang->nama_bidang : '-'" />
-                <x-ui.detail-item title="Jabatan" :value="$pegawai->jabatan" />
+                <x-ui.detail-item title="Bidang" :value="$pegawai->bidang_id ? $pegawai->bidang->nama_bidang : '-'" />
+                <x-ui.detail-item title="Jabatan" :value="$pegawai->jabatan->nama_jabatan" />
                 <x-ui.detail-item title="Golongan/Ruang" :value="$pegawai->gol_ruang" />
                 <x-ui.detail-item title="Pangkat" :value="$pegawai->pangkat" />
             </x-ui.detail-block>
 
             {{-- Informasi Masa Kerja --}}
             <x-ui.detail-block title="Informasi Masa Kerja">
-                <x-ui.detail-item title="TMT Pangkat" :value="$pegawai->tmt_pangkat->format('d M Y')" />
-                <x-ui.detail-item title="Masa Kerja" :value="$pegawai->masa_kerja_thn . ' Tahun ' . $pegawai->masa_kerja_bln . ' Bulan'" />
+                <x-ui.detail-item title="TMT Pegawai" :value="$pegawai->tmt_pegawai->format('d M Y')" />
+                <x-ui.detail-item title="Masa Kerja" :value="$pegawai->getMasaKerja()" />
+            </x-ui.detail-block>
+
+            {{-- Status Pegawai --}}
+            <x-ui.detail-block title="Informasi Status Pegawai">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 mb-1">Status</dt>
+                    @if ($pegawai->is_active)
+                        <span
+                            class="inline-flex items-center px-2 py-1 ring-1 ring-inset ring-success-subtle text-fg-success-strong text-sm font-medium rounded bg-success-soft w-fit">Aktif</span>
+                    @else
+                        <span
+                            class="inline-flex items-center px-2 py-1 ring-1 ring-inset ring-danger-subtle text-fg-danger-strong text-sm font-medium rounded bg-danger-soft w-fit">Tidak
+                            Aktif</span>
+                    @endif
+                </div>
+                @if (!$pegawai->is_active)
+                    <div class="md:col-span-3">
+                        <x-ui.detail-item title="Keterangan" :value="$pegawai->keterangan" />
+                    </div>
+                @endif
             </x-ui.detail-block>
 
             {{-- Action Buttons --}}

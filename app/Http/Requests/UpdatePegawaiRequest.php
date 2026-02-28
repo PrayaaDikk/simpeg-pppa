@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Jabatan;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -22,28 +23,42 @@ class UpdatePegawaiRequest extends FormRequest
      */
     public function rules(): array
     {
+        // 1. AMBIL ID DARI ROUTE {id}
+        // Karena route kamu: /{id}, maka panggil 'id'
         $pegawaiId = $this->route('id');
 
-        return [
-            'bidang_id' => ['required', 'exists:bidang,id'],
+        // 2. Ambil data singleton
+        $inputJabatanId = $this->input('jabatan_id');
+        $isSingleton = false;
 
+        if ($inputJabatanId) {
+            $isSingleton = Jabatan::where('id', $inputJabatanId)
+                ->where('is_singleton', true)
+                ->exists();
+        }
+
+        return [
+            'bidang_id' => ['nullable', 'exists:bidang,id'],
+            'jabatan_id' => [
+                'required',
+                'exists:jabatan,id',
+                // Jika jabatan ini hanya untuk 1 orang, cek apakah sudah dipakai ORANG LAIN
+                $isSingleton ? Rule::unique('pegawai', 'jabatan_id')->ignore($pegawaiId, 'id') : '',
+            ],
             'nip' => [
                 'required',
                 'string',
                 'max:50',
+                // Sekarang $pegawaiId tidak null, ignore akan bekerja
                 Rule::unique('pegawai', 'nip')->ignore($pegawaiId),
             ],
-
             'nama' => ['required', 'string', 'max:45'],
-
-
             'karpeg' => [
                 'nullable',
                 'string',
                 'max:50',
                 Rule::unique('pegawai', 'karpeg')->ignore($pegawaiId),
             ],
-
             'jns_kelamin' => ['required', 'in:L,P'],
             'agama' => ['required', 'string', 'max:10'],
             'tgl_lahir' => ['required', 'date', 'before:today'],
@@ -51,25 +66,21 @@ class UpdatePegawaiRequest extends FormRequest
             'telp' => ['required', 'string', 'max:15'],
             'kode_pos' => ['required', 'string', 'max:5'],
             'alamat' => ['required', 'string', 'max:100'],
-
             'status_kawin' => ['required', 'string', 'max:15'],
             'suami_istri' => ['nullable', 'string', 'max:255'],
             'sta_kerja_suami_istri' => ['nullable', 'string', 'max:20'],
             'jumlah_anak' => ['required', 'integer', 'min:0'],
-
-            'jabatan' => ['required', 'string', 'max:45'],
             'jns_karyawan' => ['required', 'in:PNS,CPNS,PPPK'],
             'gol_ruang' => ['required', 'string', 'max:5'],
-            'tmt_pangkat' => ['required', 'date', 'before_or_equal:today'],
-
-            'foto' => [
-                'nullable',
-                'image',
-                'mimes:jpg,jpeg,png',
-                'max:2048'
-            ],
+            'tmt_pegawai' => ['required', 'date', 'before_or_equal:today'],
+            'foto' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'kuota_cuti' => ['required', 'integer', 'min:0'],
+            'is_active' => ['required', 'boolean'],
+            'keterangan' => ['nullable', 'string', 'max:150'],
         ];
     }
+
+
 
     public function messages()
     {
@@ -84,6 +95,7 @@ class UpdatePegawaiRequest extends FormRequest
             'min' => 'Kolom :attribute minimal :min.',
             'image' => 'Kolom :attribute harus berupa gambar.',
             'mimes' => 'Kolom :attribute harus berformat: :values.',
+            'jabatan_id.unique' => 'Jabatan ini hanya dapat memiliki satu pegawai.',
         ];
     }
 
@@ -106,7 +118,7 @@ class UpdatePegawaiRequest extends FormRequest
             'sta_kerja_suami_istri' => 'Status Kerja Pasangan',
             'jumlah_anak' => 'Jumlah Anak',
             'jns_karyawan' => 'Jenis Karyawan',
-            'jabatan' => 'Jabatan',
+            'jabatan_id' => 'Jabatan',
             'gol_ruang' => 'Golongan/Ruang',
             'tmt_pangkat' => 'TMT Pangkat',
             'foto' => 'Foto',

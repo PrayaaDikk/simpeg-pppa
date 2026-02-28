@@ -21,7 +21,7 @@
 
                 <x-ui.detail-item title="Jenis Kelamin" :value="$cuti->pegawai->jns_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'" />
                 <x-ui.detail-item title="Agama" :value="$cuti->pegawai->agama" />
-                <x-ui.detail-item title="Usia" :value="$cuti->pegawai->usia . ' tahun'" />
+                <x-ui.detail-item title="Usia" :value="$cuti->pegawai->calculateAge() . ' tahun'" />
 
                 <x-ui.detail-item title="Tempat Lahir" :value="$cuti->pegawai->tpt_lahir" />
                 <x-ui.detail-item title="Tanggal Lahir" :value="$cuti->pegawai->tgl_lahir->format('d M Y')" />

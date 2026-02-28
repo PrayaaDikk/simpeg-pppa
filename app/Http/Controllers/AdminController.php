@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
@@ -12,6 +11,7 @@ class AdminController extends Controller
     {
         $gender = Pegawai::getTotalGender();
         $bidang = Pegawai::with('bidang')
+            ->where('is_active', 1)
             ->get()
             ->groupBy('bidang_id')
             ->sortKeys();

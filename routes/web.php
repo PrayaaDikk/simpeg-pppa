@@ -23,6 +23,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::prefix('storage')->group(function () {
+        Route::get('foto-pegawai/{filename}', [PegawaiController::class, 'showFile'])->name('pegawai.showFile');
+        Route::get('ijazah/{filename}', [RiwayatPendidikanController::class, 'showFile'])->name('riwayat-pendidikan.showFile');
+        Route::get('sk-pangkat/{filename}', [RiwayatKepangkatanController::class, 'showFile'])->name('riwayat-pangkat.showFile');
+        Route::get('sk-jabatan/{filename}', [RiwayatKepangkatanController::class, 'showFile'])->name('riwayat-jabatan.showFile');
+    });
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -88,13 +95,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
             });
         });
     });
-
-    Route::prefix('storage')->group(function () {
-        Route::get('foto-pegawai/{filename}', [PegawaiController::class, 'showFile'])->name('pegawai.showFile');
-        Route::get('ijazah/{filename}', [RiwayatPendidikanController::class, 'showFile'])->name('riwayat-pendidikan.showFile');
-        Route::get('sk-pangkat/{filename}', [RiwayatKepangkatanController::class, 'showFile'])->name('riwayat-pangkat.showFile');
-        Route::get('sk-jabatan/{filename}', [RiwayatKepangkatanController::class, 'showFile'])->name('riwayat-jabatan.showFile');
-    })->middleware('auth');
 });
 
 

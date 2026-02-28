@@ -25,7 +25,7 @@
 
                 <x-ui.detail-item title="Jenis Kelamin" :value="$riwayatPangkat->pegawai->jns_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'" />
                 <x-ui.detail-item title="Agama" :value="$riwayatPangkat->pegawai->agama" />
-                <x-ui.detail-item title="Usia" :value="$riwayatPangkat->pegawai->usia . ' tahun'" />
+                <x-ui.detail-item title="Usia" :value="$riwayatPangkat->pegawai->calculateAge() . ' tahun'" />
 
                 <x-ui.detail-item title="Tempat Lahir" :value="$riwayatPangkat->pegawai->tpt_lahir" />
                 <x-ui.detail-item title="Tanggal Lahir" :value="$riwayatPangkat->pegawai->tgl_lahir->format('d M Y')" />

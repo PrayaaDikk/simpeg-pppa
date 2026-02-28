@@ -29,7 +29,7 @@
 
                         <x-ui.detail-item title="Jenis Kelamin" :value="$user->pegawai->jns_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'" />
                         <x-ui.detail-item title="Agama" :value="$user->pegawai->agama" />
-                        <x-ui.detail-item title="Usia" :value="$user->pegawai->usia . ' tahun'" />
+                        <x-ui.detail-item title="Usia" :value="$user->pegawai->calculateAge() . ' tahun'" />
 
                         <x-ui.detail-item title="Tempat Lahir" :value="$user->pegawai->tpt_lahir" />
                         <x-ui.detail-item title="Tanggal Lahir" :value="$user->pegawai->tgl_lahir->format('d M Y')" />

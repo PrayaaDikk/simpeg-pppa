@@ -28,7 +28,7 @@
         const bidangData = [
             @foreach ($bidang as $item)
                 {
-                    akronim: '{{ $item[0]->bidang->akronim }}',
+                    akronim: '{{ $item[0]->bidang->akronim ?? 'Non Bidang' }}',
                     count: {{ count($item) }}
                 },
             @endforeach

@@ -5,6 +5,7 @@
     'options' => [],
     'required' => false,
     'disabled' => false,
+    'model' => '',
 ])
 
 <div {{ $attributes->merge(['class' => 'w-full']) }}>
@@ -17,7 +18,7 @@
         </label>
     @endif
 
-    <select id="{{ $name }}" name="{{ $name }}"
+    <select id="{{ $name }}" name="{{ $name }}" {{ $model }}
         class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-primary focus:border-primary shadow-xs cursor-pointer @error($name) border-red-500 @enderror"
         {{ $required ? 'required' : '' }} {{ $disabled ? 'disabled' : '' }}>
         <option value="">Pilih {{ $label }}</option>

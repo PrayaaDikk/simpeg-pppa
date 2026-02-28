@@ -11,12 +11,12 @@
 
     <x-input-form-block>
         <x-ui.select name="jenis_cuti" label="Jenis Cuti" :options="[
-            ['value' => 'Tahunan', 'label' => 'Cuti Tahunan'],
-            ['value' => 'Besar', 'label' => 'Cuti Besar'],
-            ['value' => 'Sakit', 'label' => 'Cuti Sakit'],
-            ['value' => 'Melahirkan', 'label' => 'Cuti Melahirkan'],
-            ['value' => 'Alasan Penting', 'label' => 'Cuti Alasan Penting'],
-            ['value' => 'Di Luar Tanggungan Negara', 'label' => 'Cuti Di Luar Tanggungan Negara'],
+            ['value' => 'tahunan', 'label' => 'Cuti Tahunan'],
+            ['value' => 'besar', 'label' => 'Cuti Besar'],
+            ['value' => 'sakit', 'label' => 'Cuti Sakit'],
+            ['value' => 'melahirkan', 'label' => 'Cuti Melahirkan'],
+            ['value' => 'alasan penting', 'label' => 'Cuti Alasan Penting'],
+            ['value' => 'di luar tanggungan negara', 'label' => 'Cuti Di Luar Tanggungan Negara'],
         ]" required />
         <x-ui.input type="date" name="tanggal_mulai" label="Tanggal Mulai" placeholder="dd-mm-yyyy" required>
             <x-slot:icon>
@@ -34,6 +34,12 @@
             </x-slot:icon>
         </x-ui.input>
     </x-input-form-block>
+
+    <div>
+        <x-input-form-block>
+            <x-ui.input type="number" name="" label="Tanggal Selesai" />
+        </x-input-form-block>
+    </div>
 
     <x-input-form-block>
         <x-ui.input type="date" name="tanggal_selesai" label="Tanggal Selesai" placeholder="dd-mm-yyyy" required>
