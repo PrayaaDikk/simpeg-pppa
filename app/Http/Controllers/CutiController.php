@@ -8,7 +8,6 @@ use App\Models\Cuti;
 use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CutiController extends Controller
 {
@@ -18,6 +17,10 @@ class CutiController extends Controller
     public function index(Request $request)
     {
         $query = Cuti::with(['pegawai']);
+
+        if (auth()->user()->role !== 'admin') {
+            $query->where('pegawai_id', auth()->user()->pegawai_id);
+        }
 
         // Search
         if ($request->filled('search')) {
@@ -38,9 +41,9 @@ class CutiController extends Controller
             $query->whereIn('status_cuti', $request->status_cuti);
         }
 
-        $cuti = $query->paginate(10)->withQueryString();
+        $cuti = $query->latest()->paginate(10)->withQueryString();
 
-        return view('admin.cuti.index', compact('cuti'));
+        return view('cuti.index', compact('cuti'));
     }
 
     /**
@@ -50,7 +53,7 @@ class CutiController extends Controller
     {
         $pegawai = Pegawai::find($pegawaiId);
 
-        return view('admin.cuti.create', compact('pegawai'));
+        return view('cuti.create', compact('pegawai'));
     }
 
     /**
@@ -76,7 +79,7 @@ class CutiController extends Controller
         $validated['diajukan_oleh'] = $validated['pegawai_id'];
         Cuti::create($validated);
 
-        return redirect()->route('admin.cuti.index')->with('success', 'Data cuti berhasil ditambahkan.');
+        return redirect()->route(auth()->user()->routePrefix() . 'cuti.index')->with('success', 'Data cuti berhasil ditambahkan.');
     }
 
     /**
@@ -86,7 +89,7 @@ class CutiController extends Controller
     {
         $cuti = Cuti::with('pegawai')->findOrFail($id);
 
-        return view('admin.cuti.show', compact('cuti'));
+        return view('cuti.show', compact('cuti'));
     }
 
     /**
@@ -96,7 +99,7 @@ class CutiController extends Controller
     {
         $cuti = Cuti::with('pegawai')->findOrFail($id);
 
-        return view('admin.cuti.edit', compact('cuti'));
+        return view('cuti.edit', compact('cuti'));
     }
 
     /**
@@ -111,7 +114,7 @@ class CutiController extends Controller
 
         $cuti->update($validated);
 
-        return redirect()->route('admin.cuti.index')->with('success', 'Data cuti berhasil diubah.');
+        return redirect()->route(auth()->user()->routePrefix() . 'cuti.index')->with('success', 'Data cuti berhasil diubah.');
     }
 
     /**
@@ -123,6 +126,6 @@ class CutiController extends Controller
 
         $cuti->delete();
 
-        return redirect()->route('admin.cuti.index')->with('success', 'Data cuti berhasil dihapus.');
+        return redirect()->route(auth()->user()->routePrefix() . 'cuti.index')->with('success', 'Data cuti berhasil dihapus.');
     }
 }

@@ -19,7 +19,6 @@ return new class extends Migration
 
             // Logika Pintar:
             $table->boolean('is_singleton')->default(false); // True jika cuma boleh 1 orang
-            $table->integer('urutan')->default(99); // Untuk sortir (Kadin paling atas)
             $table->timestamps();
         });
     }

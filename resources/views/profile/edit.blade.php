@@ -1,11 +1,11 @@
-@extends('layouts.admin-app')
+@extends('layouts.app')
 
 @section('content')
     {{-- Header --}}
-    <x-ui.header :back="route('admin.dashboard')">Profil Pegawai</x-ui.header>
+    <x-ui.header :back="route(auth()->user()->role == 'admin' ? 'admin.dashboard' : 'home')">Profil Pegawai</x-ui.header>
 
     {{-- BreadCrumb --}}
-    {{-- <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate('admin.riwayat-jabatan.index', $pegawaiId)" />/ --}}
+    {{-- <x-ui.breadcrumb :breadcrumbs="Breadcrumbs::generate(auth()->user()->routePrefix() . 'riwayat-jabatan.index', $pegawaiId)" />/ --}}
 
     {{-- Main Content --}}
     <section>
@@ -34,7 +34,7 @@
                         <x-ui.detail-item title="Tempat Lahir" :value="$user->pegawai->tpt_lahir" />
                         <x-ui.detail-item title="Tanggal Lahir" :value="$user->pegawai->tgl_lahir->format('d M Y')" />
 
-                        <x-ui.detail-item-link title="Detail Profil" :link="route('admin.pegawai.show', $user->pegawai)" value="Lihat detail" />
+                        <x-ui.detail-item-link title="Detail Profil" :link="route(auth()->user()->routePrefix() . 'pegawai.show', $user->pegawai)" value="Lihat detail" />
                     </x-ui.detail-block>
                 </div>
 

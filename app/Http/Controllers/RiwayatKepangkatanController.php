@@ -15,9 +15,13 @@ class RiwayatKepangkatanController extends Controller
      */
     public function index($pegawaiId)
     {
+        if (auth()->user()->role !== 'admin') {
+            $pegawaiId = auth()->user()->id;
+        }
+
         $riwayatPangkat = RiwayatKepangkatan::where('pegawai_id', $pegawaiId)->get();
 
-        return view('admin.riwayat-pangkat.index', compact('riwayatPangkat', 'pegawaiId'));
+        return view('riwayat-pangkat.index', compact('riwayatPangkat', 'pegawaiId'));
     }
 
     /**
@@ -25,9 +29,13 @@ class RiwayatKepangkatanController extends Controller
      */
     public function create($pegawaiId)
     {
+        if (auth()->user()->role !== 'admin') {
+            $pegawaiId = auth()->user()->id;
+        }
+
         $pangkat = Pangkat::all();
 
-        return view('admin.riwayat-pangkat.create', compact('pegawaiId', 'pangkat'));
+        return view('riwayat-pangkat.create', compact('pegawaiId', 'pangkat'));
     }
 
     /**
@@ -45,7 +53,7 @@ class RiwayatKepangkatanController extends Controller
         }
 
         RiwayatKepangkatan::create($validated);
-        return redirect()->route('admin.riwayat-pangkat.index', $validated['pegawai_id'])->with('success', 'Data riwayat pangkat berhasil ditambahkan.');
+        return redirect()->route(auth()->user()->routePrefix() . 'riwayat-pangkat.index', $validated['pegawai_id'])->with('success', 'Data riwayat pangkat berhasil ditambahkan.');
     }
 
     /**
@@ -55,7 +63,7 @@ class RiwayatKepangkatanController extends Controller
     {
         $riwayatPangkat = RiwayatKepangkatan::with('pegawai')->findOrFail($id);
 
-        return view('admin.riwayat-pangkat.show', compact('riwayatPangkat'));
+        return view('riwayat-pangkat.show', compact('riwayatPangkat'));
     }
 
     /**
@@ -66,7 +74,7 @@ class RiwayatKepangkatanController extends Controller
         $riwayatPangkat = RiwayatKepangkatan::findOrFail($id);
         $pangkat = Pangkat::all();
 
-        return view('admin.riwayat-pangkat.edit', compact('riwayatPangkat', 'pangkat'));
+        return view('riwayat-pangkat.edit', compact('riwayatPangkat', 'pangkat'));
     }
 
     /**
@@ -94,7 +102,7 @@ class RiwayatKepangkatanController extends Controller
         $riwayatPangkat->update($validated);
 
         return redirect()
-            ->route('admin.riwayat-pangkat.index', $riwayatPangkat->pegawai_id)
+            ->route(auth()->user()->routePrefix() . 'riwayat-pangkat.index', $riwayatPangkat->pegawai_id)
             ->with('success', 'Data riwayat pangkat berhasil diubah.');
     }
 
@@ -111,7 +119,7 @@ class RiwayatKepangkatanController extends Controller
 
         $riwayatPangkat->delete();
 
-        return redirect()->route('admin.riwayat-pangkat.index', $riwayatPangkat->pegawai_id)->with('success', 'Data riwayat pangkat berhasil dihapus.');
+        return redirect()->route(auth()->user()->routePrefix() . 'riwayat-pangkat.index', $riwayatPangkat->pegawai_id)->with('success', 'Data riwayat pangkat berhasil dihapus.');
     }
 
     public function showFile($filename)

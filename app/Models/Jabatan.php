@@ -13,7 +13,6 @@ class Jabatan extends Model
         'nama_jabatan',
         'bidang_id',
         'is_singleton',
-        'urutan',
     ];
 
     public function bidang()

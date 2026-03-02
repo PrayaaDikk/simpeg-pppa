@@ -8,9 +8,10 @@
                 <td class="px-6 py-4">{{ $item->nama }}</td>
                 <td class="px-6 py-4">{{ $item->nip }}</td>
                 <td class="px-6 py-4">{{ $item->gol_ruang }}</td>
-                <td class="px-6 py-4">{{ $item->jabatan->nama_jabatan }}</td>
+                <td class="px-6 py-4">{{ $item->jabatan->nama_jabatan ?? '-' }}</td>
                 <td class="px-6 py-4">
-                    <a href="{{ route('admin.pegawai.show', $item->id) }}" class="text-blue-600 hover:underline">Lihat
+                    <a href="{{ route(auth()->user()->routePrefix() . 'pegawai.show', $item->id) }}"
+                        class="text-blue-600 hover:underline">Lihat
                         Detail</a>
                 </td>
             </tr>

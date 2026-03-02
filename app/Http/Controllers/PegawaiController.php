@@ -35,6 +35,10 @@ class PegawaiController extends Controller
             $query->whereIn('jns_karyawan', $request->jenis);
         }
 
+        if ($request->filled('is_active')) {
+            $query->where('is_active', $request->is_active);
+        }
+
         // Filter Golongan
         if ($request->filled('gol_ruang')) {
             $golonganPatterns = [];
@@ -58,7 +62,7 @@ class PegawaiController extends Controller
         // Get bidang options for filter
         $bidangOptions = Bidang::pluck('nama_bidang', 'id')->toArray();
 
-        return view('admin.pegawai.index', compact('pegawai', 'bidangOptions'));
+        return view('pegawai.index', compact('pegawai', 'bidangOptions'));
     }
 
     public function show($id)
@@ -66,7 +70,7 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::with('jabatan')->findOrFail($id);
         $pendidikanTerakhir = $pegawai->pendidikanTerakhir;
 
-        return view('admin.pegawai.show', compact('pegawai', 'pendidikanTerakhir'));
+        return view('pegawai.show', compact('pegawai', 'pendidikanTerakhir'));
     }
 
     public function create()
@@ -75,7 +79,7 @@ class PegawaiController extends Controller
         $bidang = Bidang::all();
         $jabatan = Jabatan::all();
 
-        return view('admin.pegawai.create', compact('pangkat', 'bidang', 'jabatan'));
+        return view('pegawai.create', compact('pangkat', 'bidang', 'jabatan'));
     }
 
     public function store(StorePegawaiRequest $request)
@@ -92,7 +96,7 @@ class PegawaiController extends Controller
         }
 
         Pegawai::create($validated);
-        return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai berhasil ditambahkan.');
+        return redirect()->route(auth()->user()->routePrefix() . 'pegawai.index')->with('success', 'Data pegawai berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -102,7 +106,7 @@ class PegawaiController extends Controller
         $bidang = Bidang::all();
         $jabatan = Jabatan::all();
 
-        return view('admin.pegawai.edit', compact('pegawai', 'pangkat', 'bidang', 'jabatan'));
+        return view('pegawai.edit', compact('pegawai', 'pangkat', 'bidang', 'jabatan'));
     }
 
     public function update(UpdatePegawaiRequest $request, $id)
@@ -111,6 +115,10 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::findOrFail($id);
 
         $validated['pangkat'] = Pangkat::where('golongan', $validated['gol_ruang'])->value('nama_pangkat');
+
+        if (! $validated['is_active']) {
+            $validated['jabatan_id'] = null;
+        }
 
         if ($request->hasFile('foto')) {
 
@@ -128,7 +136,7 @@ class PegawaiController extends Controller
 
         $pegawai->update($validated);
 
-        return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai berhasil diubah.');
+        return redirect()->route(auth()->user()->routePrefix() . 'pegawai.index')->with('success', 'Data pegawai berhasil diubah.');
     }
 
     public function destroy($id)
@@ -141,7 +149,7 @@ class PegawaiController extends Controller
 
         $pegawai->delete();
 
-        return redirect()->route('admin.pegawai.index')->with('success', 'Data pegawai berhasil dihapus.');
+        return redirect()->route(auth()->user()->routePrefix() . 'pegawai.index')->with('success', 'Data pegawai berhasil dihapus.');
     }
 
     public function showFile($filename)

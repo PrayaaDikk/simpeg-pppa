@@ -31,7 +31,7 @@ class CutiFactory extends Factory
                 'Sakit',
                 'Melahirkan',
                 'Alasan Penting',
-                'Di Luar Tanggungan Negara'
+                'Diluar Tanggungan Negara'
             ]),
 
             'alasan_cuti' => $this->faker->sentence(8),
@@ -50,7 +50,7 @@ class CutiFactory extends Factory
                 'Disetujui',
                 'Perubahan',
                 'Ditangguhkan',
-                'Ditolak'
+                'Tidak Disetujui'
             ]),
 
             'keputusan_atasan' => $this->faker->randomElement([
@@ -61,7 +61,6 @@ class CutiFactory extends Factory
             ]),
 
             'diajukan_oleh' => User::factory(),
-            'disetujui_oleh' => User::factory(),
         ];
     }
 }

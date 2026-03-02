@@ -3,6 +3,7 @@
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
 use App\Models\Cuti;
+use App\Models\Kgb;
 use App\Models\Pegawai;
 use App\Models\RiwayatJabatan;
 use App\Models\RiwayatKepangkatan;
@@ -127,4 +128,158 @@ Breadcrumbs::for('admin.cuti.show', function (BreadcrumbTrail $trail, Cuti $cuti
 Breadcrumbs::for('admin.cuti.edit', function (BreadcrumbTrail $trail, Cuti $cuti) {
     $trail->parent('admin.cuti.index');
     $trail->push('Edit Cuti', route('admin.cuti.edit', $cuti->id));
+});
+
+// kgb
+Breadcrumbs::for('admin.kgb.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin');
+    $trail->push('KGB Pegawai', route('admin.kgb.index'));
+});
+
+Breadcrumbs::for('admin.kgb.create', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('admin.kgb.index');
+    $trail->push('Tambah KGB', route('admin.kgb.create', $pegawaiId));
+});
+
+Breadcrumbs::for('admin.kgb.show', function (BreadcrumbTrail $trail, kgb $kgb) {
+    $trail->parent('admin.kgb.index');
+    $trail->push('Detail KGB', route('admin.kgb.show', $kgb->id));
+});
+
+Breadcrumbs::for('admin.kgb.edit', function (BreadcrumbTrail $trail, kgb $kgb) {
+    $trail->parent('admin.kgb.index');
+    $trail->push('Edit KGB', route('admin.kgb.edit', $kgb->id));
+});
+
+// 
+// 
+// 
+// 
+// 
+
+Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
+    $trail->push('Beranda', route('home'));
+});
+
+// Pegawai
+Breadcrumbs::for('pegawai.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Pegawai', route('pegawai.index'));
+});
+
+Breadcrumbs::for('pegawai.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('pegawai.index');
+    $trail->push('Tambah Pegawai', route('pegawai.create'));
+});
+
+Breadcrumbs::for('pegawai.show', function (BreadcrumbTrail $trail, $pegawai) {
+    $trail->parent('pegawai.index');
+    $trail->push('Detail Pegawai', route('pegawai.show', $pegawai->id));
+});
+
+Breadcrumbs::for('pegawai.edit', function (BreadcrumbTrail $trail, $pegawai) {
+    $trail->parent('pegawai.index');
+    $trail->push('Edit Pegawai', route('pegawai.edit', $pegawai->id));
+});
+
+Breadcrumbs::for('riwayat-pendidikan.index', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('pegawai.index');
+    $trail->push('Riwayat Pendidikan', route('riwayat-pendidikan.index', $pegawaiId));
+});
+
+Breadcrumbs::for('riwayat-pendidikan.create', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('riwayat-pendidikan.index', $pegawaiId);
+    $trail->push('Tambah Riwayat Pendidikan', route('riwayat-pendidikan.create', $pegawaiId));
+});
+
+Breadcrumbs::for('riwayat-pendidikan.show', function (BreadcrumbTrail $trail, $id) {
+    $trail->parent('riwayat-pendidikan.index', RiwayatPendidikan::find($id)->pegawai_id);
+    $trail->push('Detail Riwayat Pendidikan', route('riwayat-pendidikan.show', $id));
+});
+
+Breadcrumbs::for('riwayat-pendidikan.edit', function (BreadcrumbTrail $trail, $id) {
+    $trail->parent('riwayat-pendidikan.index', RiwayatPendidikan::find($id)->pegawai_id);
+    $trail->push('Edit Riwayat', route('riwayat-pendidikan.edit', $id));
+});
+
+Breadcrumbs::for('riwayat-pangkat.index', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('pegawai.index');
+    $trail->push('Riwayat Pangkat', route('riwayat-pangkat.index', $pegawaiId));
+});
+
+Breadcrumbs::for('riwayat-pangkat.create', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('riwayat-pangkat.index', $pegawaiId);
+    $trail->push('Tambah Riwayat Pangkat', route('riwayat-pangkat.create', $pegawaiId));
+});
+
+Breadcrumbs::for('riwayat-pangkat.show', function (BreadcrumbTrail $trail, $id) {
+    $trail->parent('riwayat-pangkat.index', RiwayatKepangkatan::find($id)->pegawai_id);
+    $trail->push('Detail Riwayat Pangkat', route('riwayat-pangkat.show', $id));
+});
+
+Breadcrumbs::for('riwayat-pangkat.edit', function (BreadcrumbTrail $trail, $id) {
+    $trail->parent('riwayat-pangkat.index', RiwayatKepangkatan::find($id)->pegawai_id);
+    $trail->push('Edit Riwayat', route('riwayat-pangkat.edit', $id));
+});
+
+Breadcrumbs::for('riwayat-jabatan.index', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('pegawai.index');
+    $trail->push('Riwayat Jabatan', route('riwayat-jabatan.index', $pegawaiId));
+});
+
+Breadcrumbs::for('riwayat-jabatan.create', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('riwayat-jabatan.index', $pegawaiId);
+    $trail->push('Tambah Riwayat Jabatan', route('riwayat-jabatan.create', $pegawaiId));
+});
+
+Breadcrumbs::for('riwayat-jabatan.show', function (BreadcrumbTrail $trail, $id) {
+    $trail->parent('riwayat-jabatan.index', RiwayatJabatan::find($id)->pegawai_id);
+    $trail->push('Detail Riwayat Jabatan', route('riwayat-jabatan.show', $id));
+});
+
+Breadcrumbs::for('riwayat-jabatan.edit', function (BreadcrumbTrail $trail, $id) {
+    $trail->parent('riwayat-jabatan.index', RiwayatJabatan::find($id)->pegawai_id);
+    $trail->push('Edit Riwayat', route('riwayat-jabatan.edit', $id));
+});
+
+// Cuti
+Breadcrumbs::for('cuti.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Cuti Pegawai', route('cuti.index'));
+});
+
+Breadcrumbs::for('cuti.create', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('cuti.index');
+    $trail->push('Tambah Cuti', route('cuti.create', $pegawaiId));
+});
+
+Breadcrumbs::for('cuti.show', function (BreadcrumbTrail $trail, Cuti $cuti) {
+    $trail->parent('cuti.index');
+    $trail->push('Detail Cuti', route('cuti.show', $cuti->id));
+});
+
+Breadcrumbs::for('cuti.edit', function (BreadcrumbTrail $trail, Cuti $cuti) {
+    $trail->parent('cuti.index');
+    $trail->push('Edit Cuti', route('cuti.edit', $cuti->id));
+});
+
+// Kgb
+Breadcrumbs::for('kgb.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('KGB Pegawai', route('kgb.index'));
+});
+
+Breadcrumbs::for('kgb.create', function (BreadcrumbTrail $trail, $pegawaiId) {
+    $trail->parent('kgb.index');
+    $trail->push('Tambah KGB', route('kgb.create', $pegawaiId));
+});
+
+Breadcrumbs::for('kgb.show', function (BreadcrumbTrail $trail, Kgb $kgb) {
+    $trail->parent('kgb.index');
+    $trail->push('Detail KGB', route('kgb.show', $kgb->id));
+});
+
+Breadcrumbs::for('kgb.edit', function (BreadcrumbTrail $trail, Kgb $kgb) {
+    $trail->parent('kgb.index');
+    $trail->push('Edit KGB', route('kgb.edit', $kgb->id));
 });

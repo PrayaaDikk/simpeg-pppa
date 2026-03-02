@@ -14,9 +14,13 @@ class RiwayatJabatanController extends Controller
      */
     public function index($pegawaiId)
     {
+        if (auth()->user()->role !== 'admin') {
+            $pegawaiId = auth()->user()->id;
+        }
+
         $riwayatJabatan = RiwayatJabatan::where('pegawai_id', $pegawaiId)->get();
 
-        return view('admin.riwayat-jabatan.index', compact('riwayatJabatan', 'pegawaiId'));
+        return view('riwayat-jabatan.index', compact('riwayatJabatan', 'pegawaiId'));
     }
 
     /**
@@ -24,7 +28,11 @@ class RiwayatJabatanController extends Controller
      */
     public function create($pegawaiId)
     {
-        return view('admin.riwayat-jabatan.create', compact('pegawaiId'));
+        if (auth()->user()->role !== 'admin') {
+            $pegawaiId = auth()->user()->id;
+        }
+
+        return view('riwayat-jabatan.create', compact('pegawaiId'));
     }
 
     /**
@@ -42,7 +50,7 @@ class RiwayatJabatanController extends Controller
         }
 
         RiwayatJabatan::create($validated);
-        return redirect()->route('admin.riwayat-jabatan.index', $validated['pegawai_id'])->with('success', 'Data riwayat jabatan berhasil ditambahkan.');
+        return redirect()->route(auth()->user()->routePrefix() . 'riwayat-jabatan.index', $validated['pegawai_id'])->with('success', 'Data riwayat jabatan berhasil ditambahkan.');
     }
 
     /**
@@ -52,7 +60,7 @@ class RiwayatJabatanController extends Controller
     {
         $riwayatJabatan = RiwayatJabatan::with('pegawai')->findOrFail($id);
 
-        return view('admin.riwayat-jabatan.show', compact('riwayatJabatan'));
+        return view('riwayat-jabatan.show', compact('riwayatJabatan'));
     }
 
     /**
@@ -62,7 +70,7 @@ class RiwayatJabatanController extends Controller
     {
         $riwayatJabatan = RiwayatJabatan::findOrFail($id);
 
-        return view('admin.riwayat-jabatan.edit', compact('riwayatJabatan'));
+        return view('riwayat-jabatan.edit', compact('riwayatJabatan'));
     }
 
     /**
@@ -90,7 +98,7 @@ class RiwayatJabatanController extends Controller
         $riwayatJabatan->update($validated);
 
         return redirect()
-            ->route('admin.riwayat-jabatan.index', $riwayatJabatan->pegawai_id)
+            ->route(auth()->user()->routePrefix() . 'riwayat-jabatan.index', $riwayatJabatan->pegawai_id)
             ->with('success', 'Data riwayat jabatan berhasil diubah.');
     }
 
@@ -107,7 +115,7 @@ class RiwayatJabatanController extends Controller
 
         $riwayatJabatan->delete();
 
-        return redirect()->route('admin.riwayat-jabatan.index', $riwayatJabatan->pegawai_id)->with('success', 'Data riwayat jabatan berhasil dihapus.');
+        return redirect()->route(auth()->user()->routePrefix() . 'riwayat-jabatan.index', $riwayatJabatan->pegawai_id)->with('success', 'Data riwayat jabatan berhasil dihapus.');
     }
 
     public function showFile($filename)

@@ -14,9 +14,13 @@ class RiwayatPendidikanController extends Controller
      */
     public function index($pegawaiId)
     {
+        if (auth()->user()->role !== 'admin') {
+            $pegawaiId = auth()->user()->id;
+        }
+
         $riwayatPendidikan = RiwayatPendidikan::where('pegawai_id', $pegawaiId)->orderBy('level_pendidikan', 'asc')->get();
 
-        return view('admin.riwayat-pendidikan.index', compact('riwayatPendidikan', 'pegawaiId'));
+        return view('riwayat-pendidikan.index', compact('riwayatPendidikan', 'pegawaiId'));
     }
 
     /**
@@ -24,7 +28,11 @@ class RiwayatPendidikanController extends Controller
      */
     public function create($pegawaiId)
     {
-        return view('admin.riwayat-pendidikan.create', compact('pegawaiId'));
+        if (auth()->user()->role !== 'admin') {
+            $pegawaiId = auth()->user()->id;
+        }
+
+        return view('riwayat-pendidikan.create', compact('pegawaiId'));
     }
 
     /**
@@ -42,7 +50,7 @@ class RiwayatPendidikanController extends Controller
         }
 
         RiwayatPendidikan::create($validated);
-        return redirect()->route('admin.riwayat-pendidikan.index', $validated['pegawai_id'])->with('success', 'Data riwayat pendidikan berhasil ditambahkan.');
+        return redirect()->route(auth()->user()->routePrefix() . 'riwayat-pendidikan.index', $validated['pegawai_id'])->with('success', 'Data riwayat pendidikan berhasil ditambahkan.');
     }
 
     /**
@@ -52,7 +60,7 @@ class RiwayatPendidikanController extends Controller
     {
         $riwayatPendidikan = RiwayatPendidikan::with('pegawai')->findOrFail($id);
 
-        return view('admin.riwayat-pendidikan.show', compact('riwayatPendidikan'));
+        return view('riwayat-pendidikan.show', compact('riwayatPendidikan'));
     }
 
     /**
@@ -62,7 +70,7 @@ class RiwayatPendidikanController extends Controller
     {
         $riwayatPendidikan = RiwayatPendidikan::findOrFail($id);
 
-        return view('admin.riwayat-pendidikan.edit', compact('riwayatPendidikan'));
+        return view('riwayat-pendidikan.edit', compact('riwayatPendidikan'));
     }
 
     /**
@@ -89,7 +97,7 @@ class RiwayatPendidikanController extends Controller
 
         $riwayatPendidikan->update($validated);
 
-        return redirect()->route('admin.riwayat-pendidikan.index', $riwayatPendidikan->pegawai_id)->with('success', 'Data riwayat pendidikan berhasil diubah.');
+        return redirect()->route(auth()->user()->routePrefix() . 'riwayat-pendidikan.index', $riwayatPendidikan->pegawai_id)->with('success', 'Data riwayat pendidikan berhasil diubah.');
     }
 
     /**
@@ -105,7 +113,7 @@ class RiwayatPendidikanController extends Controller
 
         $riwayatPendidikan->delete();
 
-        return redirect()->route('admin.riwayat-pendidikan.index', $riwayatPendidikan->pegawai_id)->with('success', 'Data riwayat pendidikan berhasil dihapus.');
+        return redirect()->route(auth()->user()->routePrefix() . 'riwayat-pendidikan.index', $riwayatPendidikan->pegawai_id)->with('success', 'Data riwayat pendidikan berhasil dihapus.');
     }
 
     public function showFile($filename)

@@ -33,8 +33,8 @@ class UpdateCutiRequest extends FormRequest
             'alamat_cuti'     => 'required|string',
             'no_telp'         => 'required|string|max:20',
             'catatan_cuti'    => 'nullable|string',
-            'status_cuti' => 'required|in:Menunggu,Disetujui,Perubahan,Ditangguhkan,Tidak disetujui',
-            'keputusan_atasan' => 'required|in:Menunggu,Disetujui,Perubahan,Ditangguhkan,Tidak disetujui'
+            'status_cuti' => 'in:Menunggu,Disetujui,Perubahan,Ditangguhkan,Tidak disetujui',
+            'keputusan_atasan' => 'in:Menunggu,Disetujui,Perubahan,Ditangguhkan,Tidak disetujui'
         ];
     }
 
@@ -53,8 +53,8 @@ class UpdateCutiRequest extends FormRequest
             'numeric' => ':attribute harus berupa angka.',
             'after' => ':attribute harus setelah :date.',
             'date_format' => ':attribute harus berformat :format.',
-            'before_or_equal' => ':attribute harus sebelum atau sama dengan :date.',
-            'after_or_equal' => ':attribute harus setelah atau sama dengan :date.',
+            'before_or_equal' => ':attribute harus sebelum atau sama dengan hari ini.',
+            'after_or_equal' => ':attribute harus setelah atau sama dengan hari ini.',
         ];
     }
 

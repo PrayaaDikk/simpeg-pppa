@@ -71,4 +71,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Kgb::class, 'disetujui_oleh');
     }
+
+    public function routePrefix()
+    {
+        return $this->role === 'admin' ? 'admin.' : '';
+    }
+
+    public function getRouteParams($id = null)
+    {
+        return $this->role === 'admin' ? ['id' => $id] : [];
+    }
 }

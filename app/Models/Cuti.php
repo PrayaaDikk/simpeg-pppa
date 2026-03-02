@@ -27,7 +27,6 @@ class Cuti extends Model
         'status_cuti',
         'keputusan_atasan',
         'diajukan_oleh',
-        'disetujui_oleh',
     ];
 
     protected $casts = [

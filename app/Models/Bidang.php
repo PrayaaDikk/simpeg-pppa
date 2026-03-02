@@ -11,6 +11,7 @@ class Bidang extends Model
 
     protected $fillable = [
         'nama_bidang',
+        'akronim'
     ];
 
     public function pegawai()
