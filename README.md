@@ -11,7 +11,7 @@ Panduan ini memuat langkah-langkah terstruktur untuk menduplikasi (_clone_), mem
 Buka terminal atau command prompt Anda, lalu jalankan perintah berikut untuk mengunduh proyek:
 
 ```bash
-git clone <https://github.com/prayaadikk/simpeg-pppa.git> simpeg-pppa
+git clone https://github.com/prayaadikk/simpeg-pppa.git simpeg-pppa
 
 ```
 
