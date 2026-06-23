@@ -11,16 +11,14 @@ Panduan ini memuat langkah-langkah terstruktur untuk menduplikasi (_clone_), mem
 Buka terminal atau command prompt Anda, lalu jalankan perintah berikut untuk mengunduh proyek:
 
 ```bash
-git clone <URL_REPOSITORI_ANDA> nama-direktori-proyek
+git clone <https://github.com/prayaadikk/simpeg-pppa.git> simpeg-pppa
 
 ```
-
-_Ganti `<URL_REPOSITORI_ANDA>` dengan tautan Git proyek Anda._
 
 Masuk ke dalam direktori proyek:
 
 ```bash
-cd nama-direktori-proyek
+cd simpeg-pppa
 
 ```
 
@@ -51,8 +49,6 @@ cp .env.example .env
 
 ```
 
-_(Untuk pengguna Windows CMD jika perintah `cp` tidak bekerja, gunakan: `copy .env.example .env`)_
-
 ### 5. Konfigurasi Basis Data MySQL
 
 Buka aplikasi manajemen database Anda (seperti phpMyAdmin, TablePlus, atau DBeaver) lalu **buat sebuah database baru** dengan nama bebas, misalnya: `db_kepegawaian`.
@@ -68,8 +64,6 @@ DB_USERNAME=root
 DB_PASSWORD=
 
 ```
-
-_Sesuaikan nilai `DB_USERNAME` dan `DB_PASSWORD` dengan kredensial server MySQL lokal Anda (kosongkan `DB_PASSWORD` jika menggunakan XAMPP bawaan)._
 
 ### 6. Generate Aplikasi Key
 
